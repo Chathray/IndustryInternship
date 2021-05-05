@@ -77,6 +77,7 @@ namespace Idis.WebApi
                 c.DocExpansion(DocExpansion.List);
                 c.EnableDeepLinking();
                 c.EnableFilter();
+                c.HeadContent = "1212121121212";
                 c.MaxDisplayedTags(5);
                 c.ShowExtensions();
                 c.ShowCommonExtensions();

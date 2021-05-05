@@ -11,7 +11,7 @@ namespace Idis.WebApi
     [Authorize]
     [ApiController]
     [ApiVersion("2")]
-    [Route("api/v{version:apiVersion}/intern")]
+    [Route("api/v{version:apiVersion}/Intern")]
     public class InternController : ControllerBase
     {
         private readonly ILogger<InternController> _logger;
@@ -113,5 +113,18 @@ namespace Idis.WebApi
             return (passed / (float)total).ToString("0%");
         }
         #endregion
+
+
+        /// <summary>
+        /// Delete a Intern
+        /// </summary>
+        /// <remarks>Delete a Intern given Intern Id</remarks>
+        /// <param name="id"></param>
+        /// <returns>True if delete success, else False</returns>
+        [HttpDelete("DeleteIntern")]
+        public bool DeleteIntern(int id)
+        {
+            return _serviceFactory.Intern.Delete(id);
+        }
     }
 }

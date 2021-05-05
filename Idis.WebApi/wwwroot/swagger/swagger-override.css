@@ -1,9 +1,27 @@
 ﻿body {
-    margin: 0;
+    margin: 0px;
     background: #fafafa;
     zoom: 0;
     -moz-transform: scale(0.9);
     -moz-transform-origin: 0 0;
+}
+
+body {
+    height: 100%;
+    overflow: auto
+}
+
+    body::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 0rem;
+        height: 0rem
+    }
+
+    body::-webkit-scrollbar-thumb {
+    }
+
+* {
+    font-family: 'Titillium Web', sans-serif;
 }
 
 .swagger-ui .topbar .download-url-wrapper .select-label select {
@@ -14,24 +32,15 @@
     background-color: #42b5e1 !important;
 }
 
-
-body {
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: auto
-}
-
-    body::-webkit-scrollbar {
-        height: .4rem;
-        width: .4rem
-    }
-
-    body::-webkit-scrollbar-thumb {
-        border: none;
-        background-color: #79c2ed;
-    }
-
 .swagger-ui .info {
     margin-top: 50px;
     margin-bottom: 0px;
+}
+
+.swagger-ui .wrapper {
+    width: 100%;
+    max-width: 1460px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
 }

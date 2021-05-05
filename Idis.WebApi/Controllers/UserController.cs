@@ -17,7 +17,7 @@ namespace Idis.WebApi
     [ApiController]
     [ApiVersion("1")]
     [ApiVersion("2")]
-    [Route("api/v{version:apiVersion}/user")]
+    [Route("api/v{version:apiVersion}/User")]
     public class UserController : ControllerBase
     {
         private readonly IMapper _mapper;

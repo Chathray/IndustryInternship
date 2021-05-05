@@ -32,6 +32,7 @@
             </summary>
             <remarks>Get all event list</remarks>
             <returns>List of event</returns>
+            <response code="201">Empty data</response>
         </member>
         <member name="M:Idis.WebApi.CalendarController.GetJointEvents(System.Int32)">
             <summary>
@@ -88,6 +89,14 @@
             </summary>
             <remarks>Get number of intern passed an internship</remarks>
             <returns>Number of passed intern</returns>
+        </member>
+        <member name="M:Idis.WebApi.InternController.DeleteIntern(System.Int32)">
+            <summary>
+            Delete a Intern
+            </summary>
+            <remarks>Delete a Intern given Intern Id</remarks>
+            <param name="id"></param>
+            <returns>True if delete success, else False</returns>
         </member>
         <member name="M:Idis.WebApi.QuestionController.DeleteQuestion(System.Int32)">
             <summary>

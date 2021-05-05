@@ -11,7 +11,7 @@ namespace Idis.WebApi
     [Authorize]
     [ApiController]
     [ApiVersion("2")]
-    [Route("api/v{version:apiVersion}/intern")]
+    [Route("api/v{version:apiVersion}/Question")]
     public class QuestionController : ControllerBase
     {
         private readonly ILogger<InternController> _logger;
@@ -31,7 +31,7 @@ namespace Idis.WebApi
         /// </summary>
         /// <param name="id">Question Id</param>
         /// <returns>True or False</returns>
-        [HttpPost("DeleteQuestion")]
+        [HttpDelete("DeleteQuestion")]
         public bool DeleteQuestion(int id)
         {
             return _serviceFactory.Question.Delete(id);

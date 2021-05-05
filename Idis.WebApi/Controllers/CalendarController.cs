@@ -13,7 +13,7 @@ namespace Idis.WebApi
     [Authorize]
     [ApiController]
     [ApiVersion("2")]
-    [Route("api/v{version:apiVersion}/calendar")]
+    [Route("api/v{version:apiVersion}/Calendar")]
     public class CalendarController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -58,7 +58,6 @@ namespace Idis.WebApi
         /// </summary>
         /// <remarks>Get list of intern by format [src,value]</remarks>
         /// <returns>Dynamic object</returns>
-        [Produces("application/json")]
         [HttpGet("GetWhitelist")]
         public dynamic GetWhitelist()
         {
@@ -86,6 +85,8 @@ namespace Idis.WebApi
         /// </summary>
         /// <remarks>Get all event list</remarks>
         /// <returns>List of event</returns>
+        /// <response code="201">Empty data</response>
+        [ProducesResponseType(typeof(string), 201)]
         [HttpGet("GetEvents")]
         public string GetEvents()
         {
