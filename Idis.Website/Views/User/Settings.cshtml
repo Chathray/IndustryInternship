@@ -1,0 +1,390 @@
+﻿@model SettingsViewModel
+
+@section Scripts{
+    <script src="/js/script-section-settings.js"></script>
+}
+
+@if (TempData["notification"] != null)
+{
+    @Html.Raw(@"<div class='alert alert-soft-success alert-dismissible fade show' role='alert'>
+  <strong>" + TempData["notification"] + @"</strong>
+  <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <i class='tio-clear tio-lg'></i>
+  </button>
+</div>")
+}
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-sm mb-2 mb-sm-0">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-no-gutter">
+                    <li class="breadcrumb-item"><a class="breadcrumb-link" href="/">User</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Settings</li>
+                </ol>
+            </nav>
+
+            <h2 class="page-header-title mt-3">Settings</h2>
+        </div>
+
+        <div class="col-sm-auto">
+            <a class="btn btn-sm btn-primary" href="/Profile">
+                <i class="tio-user mr-1"></i> My profile
+            </a>
+        </div>
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Page Header -->
+
+<div class="row">
+    <div class="col-lg-3">
+        <!-- Navbar -->
+        <div class="navbar-vertical navbar-expand-lg mb-3 mb-lg-5">
+            <!-- Navbar Toggle -->
+            <button type="button" class="navbar-toggler btn btn-block btn-white mb-3" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navbarVerticalNavMenu" data-toggle="collapse" data-target="#navbarVerticalNavMenu">
+                <span class="d-flex justify-content-between align-items-center">
+                    <span class="h5 mb-0">Nav menu</span>
+
+                    <span class="navbar-toggle-default">
+                        <i class="tio-menu-hamburger"></i>
+                    </span>
+
+                    <span class="navbar-toggle-toggled">
+                        <i class="tio-clear"></i>
+                    </span>
+                </span>
+            </button>
+            <!-- End Navbar Toggle -->
+
+            <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
+                <!-- Navbar Nav -->
+                <ul id="navbarSettings" class="js-sticky-block js-scrollspy navbar-nav navbar-nav-lg nav-tabs card card-navbar-nav"
+                    data-hs-sticky-block-options='{
+                       "parentSelector": "#navbarVerticalNavMenu",
+                       "breakpoint": "lg",
+                       "startPoint": "#navbarVerticalNavMenu",
+                       "endPoint": "#stickyBlockEndPoint",
+                       "stickyOffsetTop": 20
+                     }'>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#content">
+                            <i class="tio-user-outlined nav-icon"></i> Basic information
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#passwordSection">
+                            <i class="tio-lock-outlined nav-icon"></i> Password
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#deleteAccountSection">
+                            <i class="tio-delete-outlined nav-icon"></i> Delete account
+                        </a>
+                    </li>
+                </ul>
+                <!-- End Navbar Nav -->
+            </div>
+        </div>
+        <!-- End Navbar -->
+    </div>
+
+    <div class="col-lg-9">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+            <!-- Profile Cover -->
+            <div class="profile-cover">
+                <div class="profile-cover-img-wrapper">
+                    <img id="profileCoverImg" class="profile-cover-img" src="/img/avatar/_header.jpg" alt="Image Description">
+
+                    <!-- Custom File Cover -->
+                    <div class="profile-cover-content profile-cover-btn">
+                        <div class="custom-file-btn">
+                            <input type="file" class="js-file-attach custom-file-btn-input" id="profileCoverUplaoder"
+                                   data-hs-file-attach-options='{
+                                "textTarget": "#profileCoverImg",
+                                "mode": "image",
+                                "targetAttr": "src",
+                                "allowTypes": [".png", ".jpeg", ".jpg"]
+                             }'>
+                            <label class="custom-file-btn-label btn btn-sm btn-white" for="profileCoverUplaoder">
+                                <i class="tio-add-photo mr-sm-1"></i>
+                                <span class="d-none d-sm-inline-block">Update your header</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- End Custom File Cover -->
+                </div>
+            </div>
+            <!-- End Profile Cover -->
+            <!-- Avatar -->
+            <label class="avatar avatar-xxl avatar-circle avatar-border-lg avatar-uploader profile-cover-avatar" for="avatarUploader">
+                <img id="avatarImg" class="avatar-img" src="/img/avatar/_user.jpg" alt="Image Description">
+
+                <input type="file" class="js-file-attach avatar-uploader-input" id="avatarUploader"
+                       data-hs-file-attach-options='{
+                          "textTarget": "#avatarImg",
+                          "mode": "image",
+                          "targetAttr": "src",
+                          "allowTypes": [".png", ".jpeg", ".jpg"]
+                       }'>
+
+                <span class="avatar-uploader-trigger">
+                    <i class="tio-edit avatar-uploader-icon shadow-soft"></i>
+                </span>
+            </label>
+            <!-- End Avatar -->
+            <!-- Body -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <span class="d-block font-size-sm mb-2">Who can see your profile photo? <i class="tio-help-outlined" data-toggle="tooltip" data-placement="top" title="Your visibility setting only applies to your profile photo. Your header image is always visible to anyone."></i></span>
+
+                        <!-- Select -->
+                        <div class="select2-custom">
+                            <select asp-for="AvatarVisibility" class="js-select2-custom custom-select" size="1" style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                "minimumResultsForSearch": "Infinity"
+                              }'>
+                                <option value='true' data-option-template='<span class="media"><i class="tio-earth-east tio-lg text-body mr-2" style="margin-top: .125rem;"></i><span class="media-body"><span class="d-block">Anyone</span><small class="select2-custom-hide">Visible to anyone who can view your content. Accessible by installed apps.</small></span></span>'>Anyone</option>
+                                <option value='false' data-option-template='<span class="media"><i class="tio-lock-outlined tio-lg text-body mr-2" style="margin-top: .125rem;"></i><span class="media-body"><span class="d-block">Only you</span><small class="select2-custom-hide">Only visible to you.</small></span></span>'>Only you</option>
+                            </select>
+                        </div>
+                        <!-- End Select -->
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Body -->
+        </div>
+        <!-- End Card -->
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+            <div class="card-header">
+                <h2 class="card-title h4">Basic information</h2>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+                <!-- Form -->
+                <form method="post" action="/User/UpdateBasic">
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label for="firstNameSetting" class="col-sm-3 col-form-label input-label">Full name <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title="Displayed on public forums, such as Front."></i></label>
+
+                        <div class="col-sm-9">
+                            <div class="input-group input-group-sm-down-break">
+                                <input asp-for="FirstName" type="text" required class="form-control" id="firstNameSetting" placeholder="Your first name" aria-label="Your first name">
+                                <input asp-for="LastName" type="text" required class="form-control" id="lastNameSetting" placeholder="Your last name" aria-label="Your last name">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label for="emailSetting" class="col-sm-3 col-form-label input-label">Email</label>
+
+                        <div class="col-sm-9">
+                            <input asp-for="Email" type="email" required class="form-control" id="emailSetting" placeholder="Email" aria-label="Email">
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label for="phoneSetting" class="col-sm-3 col-form-label input-label">Phone <span class="input-label-secondary">(Optional)</span></label>
+
+                        <div class="col-sm-9">
+                            <input asp-for="Phone" type="text" id="phoneSetting" required class="js-masked-input form-control" placeholder="+84 000 000 000"
+                                   data-hs-mask-options='{
+                                   "template": "+84 000 000 000"
+                                   }' maxlength="16" />
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label for="departmentSetting" class="col-sm-3 col-form-label input-label">Department</label>
+
+                        <div class="col-sm-9">
+                            <div class="input-group input-group-sm-down-break">
+                                <!-- Select2 -->
+                                <select asp-for=Department id="departmentSetting" required class="js-select2-custom custom-select" size="1" style="opacity: 0;"
+                                        data-hs-select2-options='{"minimumResultsForSearch": "Infinity",
+                                                                  "placeholder": "Select one"}'>
+                                    <option label="empty"></option>
+                                    @foreach (var de in Model.Departments)
+                                    {
+                                        <option value="@de.DepartmentId">@de.DepName</option>
+                                    }
+                                </select>
+                                <!-- End Select2 -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label class="col-sm-3 col-form-label input-label">Account type</label>
+                        <div class="col-sm-9">
+                            <div class="input-group input-group-sm-down-break">
+                                <!-- Select2 -->
+                                <select asp-for=Role id="roleSetting" required class="js-select2-custom custom-select" size="1" style="opacity: 0;"
+                                        data-hs-select2-options='{"minimumResultsForSearch": "Infinity",
+                                                                  "placeholder": "Select role"}'>
+                                    <option label="empty"></option>
+                                    <option value="mentor">Mentor</option>
+                                    <option value="staff">Staff</option>
+                                </select>
+                                <!-- End Select2 -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label for="addressLine1Setting" class="col-sm-3 col-form-label input-label">Address line 1</label>
+
+                        <div class="col-sm-9">
+                            <input asp-for="Address1" type="text" required class="form-control" id="addressLine1Setting" placeholder="Your address 1" aria-label="Your address">
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label for="addressLine2Setting" class="col-sm-3 col-form-label input-label">Address line 2 <span class="input-label-secondary">(Optional)</span></label>
+
+                        <div class="col-sm-9">
+                            <input asp-for="Address2" type="text" class="form-control" id="addressLine2Setting" placeholder="Your address 2" aria-label="Your address">
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label for="zipCodeSetting" class="col-sm-3 col-form-label input-label">Zip code <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title="You can find your code in a postal address."></i></label>
+
+                        <div class="col-sm-9">
+                            <input asp-for="ZipCode" type="text" required class="js-masked-input form-control" id="zipCodeSetting" placeholder="Your zip code" aria-label="Your zip code"
+                                   data-hs-mask-options='{
+                               "template": "AA0 0AA"
+                             }'>
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+                <!-- End Form -->
+            </div>
+            <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div id="passwordSection" class="card mb-3 mb-lg-5">
+            <div class="card-header">
+                <h4 class="card-title">Change your password</h4>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+                <!-- Form -->
+                <form id="changePasswordForm" method="post" asp-controller="User" asp-action="UpdatePassword">
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label for="currentPasswordSetting" class="col-sm-3 col-form-label input-label">Current password</label>
+
+                        <div class="col-sm-9">
+                            <input type="password" required class="form-control" name="CurrentPassword" id="currentPasswordSetting" placeholder="Enter current password" aria-label="Enter current password">
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label for="newPasswordSetting" class="col-sm-3 col-form-label input-label">New password</label>
+
+                        <div class="col-sm-9">
+                            <input type="password" required class="js-pwstrength form-control" name="NewPassword" id="newPasswordSetting" placeholder="Enter new password" aria-label="Enter new password"
+                                   data-hs-pwstrength-options='{
+                               "ui": {
+                                 "container": "#changePasswordForm",
+                                 "viewports": {
+                                   "progress": "#passwordStrengthProgress",
+                                   "verdict": "#passwordStrengthVerdict"
+                                 }
+                               }
+                             }'>
+
+                            <p id="passwordStrengthVerdict" class="form-text mb-2"></p>
+
+                            <div id="passwordStrengthProgress"></div>
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label for="confirmNewPasswordSetting" class="col-sm-3 col-form-label input-label">Confirm new password</label>
+
+                        <div class="col-sm-9">
+                            <div class="mb-3">
+                                <input type="password" required class="form-control" name="ConfirmNewPassword" id="confirmNewPasswordSetting" placeholder="Confirm your new password" aria-label="Confirm your new password">
+                            </div>
+
+                            <h5>Password requirements:</h5>
+
+                            <p class="font-size-sm mb-2">Ensure that these requirements are met:</p>
+
+                            <ul class="font-size-sm">
+                                <li>Minimum 8 characters long - the more, the better</li>
+                                <li>At least one lowercase character</li>
+                                <li>At least one uppercase character</li>
+                                <li>At least one number, symbol, or whitespace character</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+                <!-- End Form -->
+            </div>
+            <!-- End Body -->
+        </div>
+        <!-- End Card -->
+        <!-- Card -->
+        <div id="deleteAccountSection" class="card mb-3 mb-lg-5">
+            <div class="card-header">
+                <h4 class="card-title">Delete your account</h4>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+                <p class="card-text">When you delete your account, you lose access to Front account services, and we permanently delete your personal data. You can cancel the deletion for 14 days.</p>
+
+                <div class="form-group">
+                    <!-- Custom Checkbox -->
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="deleteAccountCheckbox">
+                        <label class="custom-control-label" for="deleteAccountCheckbox">Confirm that I want to delete my account.</label>
+                    </div>
+                    <!-- End Custom Checkbox -->
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-white mr-2" href="#">Learn more <i class="tio-open-in-new ml-1"></i></a>
+
+                    <button onclick="UserDelete(@ViewBag.id)" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+            <!-- End Body -->
+        </div>
+        <!-- End Card -->
+        <!-- Sticky Block End Point -->
+        <div id="stickyBlockEndPoint"></div>
+    </div>
+</div>
+<!-- End Row -->

@@ -1,0 +1,37 @@
+﻿body {
+    margin: 0;
+    background: #fafafa;
+    zoom: 0;
+    -moz-transform: scale(0.9);
+    -moz-transform-origin: 0 0;
+}
+
+.swagger-ui .topbar .download-url-wrapper .select-label select {
+    border-color: #42b5e1;
+}
+
+.swagger-ui .info .title small:last-child {
+    background-color: #42b5e1 !important;
+}
+
+
+body {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: auto
+}
+
+    body::-webkit-scrollbar {
+        height: .4rem;
+        width: .4rem
+    }
+
+    body::-webkit-scrollbar-thumb {
+        border: none;
+        background-color: #79c2ed;
+    }
+
+.swagger-ui .info {
+    margin-top: 50px;
+    margin-bottom: 0px;
+}

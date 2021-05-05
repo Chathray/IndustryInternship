@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Internship - TMA Solutions</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing -->
+    <link rel="stylesheet" href="~/lib/front/vendor.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/site.css">
+</head>
+
+<body class="   footer-offset">
+
+    @await Html.PartialAsync("/Views/Shared/_TopMenu.cshtml")
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main" class="main">
+
+        <!-- Content -->
+        <div class="content container-fluid px-6">
+            @RenderBody()
+        </div>
+        <!-- End Content -->
+        <!-- Footer -->
+        <div class="footer">
+            <div class="row justify-content-between align-items-center">
+                <div class="col">
+                    <p class="font-size-sm mb-0">&copy; Industry Internship. <span class="d-none d-sm-inline-block">@DateTime.Now.Year TMA.</span></p>
+                </div>
+                <div class="col-auto">
+                    <div class="d-flex justify-content-end">
+                        <!-- List Dot -->
+                        <ul class="list-inline list-separator">
+                            <li class="list-inline-item">
+                                <a class="list-separator-link" href="#">FAQ</a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a class="list-separator-link" href="#">License</a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <!-- Keyboard Shortcuts Toggle -->
+                                <div class="hs-unfold">
+                                    <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle" href="javascript:;"
+                                       data-hs-unfold-options='{
+                              "target": "#keyboardShortcutsSidebar",
+                              "type": "css-animation",
+                              "animationIn": "fadeInRight",
+                              "animationOut": "fadeOutRight",
+                              "hasOverlay": true,
+                              "smartPositionOff": true
+                             }'>
+                                        <i class="tio-command-key"></i>
+                                    </a>
+                                </div>
+                                <!-- End Keyboard Shortcuts Toggle -->
+                            </li>
+                        </ul>
+                        <!-- End List Dot -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Footer -->
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+    <!-- ========== SECONDARY CONTENTS ========== -->
+    @await Html.PartialAsync("/Views/Shared/_KeyboardShortcuts.cshtml")
+    @await Html.PartialAsync("/Views/Shared/_ActivityStream.cshtml")
+    <!-- ========== END SECONDARY CONTENTS ========== -->
+    <!-- JS Implementing Plugins -->
+    <script src="~/lib/front/vendor.min.js"></script>
+    <script src="~/lib/front/theme.min.js"></script>
+
+    <link rel="stylesheet" href="~/lib/jquery-confirm/jquery-confirm.min.css">
+    <script src="~/lib/jquery-confirm/jquery-confirm.min.js"></script>
+
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
+    <script>
+
+        "use strict";
+        var connection = new signalR.HubConnectionBuilder().withUrl("/EchoHub").build();
+        var uuid;
+
+        connection.start().then(function () {
+            // alert('Starting...');
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        connection.on("ClientMasterMessage", function (message, owner) {
+            if (owner !== uuid)
+                $.alert(message)
+        });
+
+        connection.on("ClientStatus", function (status) {
+            $('#user-status').removeClass('avatar-status-success');
+            $('#user-status').removeClass('avatar-status-warning');
+            $('#user-status').removeClass('avatar-status-danger');
+
+            $('#user-status').addClass('avatar-status-' + status);
+            localStorage.setItem('user_status', status);
+        });
+
+        function OpenToastMaster() {
+            $.confirm({
+                title: false,
+                content: `<div class="card-body">
+                            <h2 class="card-header-title mb-4">Create Toast</h2>
+                            <!-- Form Group -->
+                            <div class="form-group mb-0">
+                                <textarea id="txtToast" class="form-control" placeholder="Enter your message here" style="height: 150px;"></textarea>
+                            </div>
+                            </div>`,
+                columnClass: 'medium',
+                container: 'main',
+                backgroundDismiss: true,
+                buttons:
+                {
+                    Cancel: function () { },
+                    Create: {
+                        btnClass: 'btn-soft-success',
+                        action: function () {
+                            var cont = $('#txtToast').val()
+                            uuid = $('#uuid').attr('data-id');
+                            SendSMS(cont, uuid);
+                        }
+                    },
+                }
+            });
+        }
+
+        function SendSMS(message, owner) {
+            connection.invoke("ToastMaster", message, owner).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
+
+        var ava_url = localStorage.getItem("user_avatar");
+        $('#user-ava1').attr('src', ava_url);
+        $('#user-ava2').attr('src', ava_url);
+
+        var user_sts = localStorage.getItem("user_status");
+        $('#user-status').addClass('avatar-status-' + user_sts);
+    </script>
+
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        $(document).on('ready', function () {
+            // INITIALIZATION OF UNFOLD
+            // =======================================================
+            $('.js-hs-unfold-invoker').each(function () {
+                var unfold = new HSUnfold($(this)).init();
+            });
+
+            // INITIALIZATION OF FILE ATTACH
+            // =======================================================
+            $('.js-file-attach').each(function () {
+                var customFile = new HSFileAttach($(this)).init();
+            });
+
+            // INITIALIZATION OF MASKED INPUT
+            // =======================================================
+            $('.js-masked-input').each(function () {
+                var mask = $.HSCore.components.HSMask.init($(this));
+            });
+
+            // INITIALIZATION OF SELECT2
+            // =======================================================
+            $('.js-select2-custom').each(function () {
+                var select2 = $.HSCore.components.HSSelect2.init($(this));
+            });
+
+
+            // Đăng xuất
+            $('#signout-cmd').on('click', function () {
+                $.confirm({
+                    title: 'Sign out?',
+                    icon: 'tio-smile',
+                    theme: 'supervan',
+                    type: 'red',
+                    buttons:
+                    {
+                        No: function () { },
+                        logoutUser: {
+                            text: 'Yes',
+                            action: function () {
+                                window.location = '/Logout';
+                            }
+                        },
+                    }
+                });
+            });
+
+            $('#navSubmenuPagesAccountDropdown1 .dropdown-item').on('click', function () {
+                var txt = 'success';
+                switch ($(this).attr('data-id')) {
+                    case '2':
+                        txt = 'warning'
+                        break;
+                    case '3':
+                        txt = 'danger'
+                        break;
+                }
+                $.post("User/SetStatus", { status: txt })
+            });
+
+            $('#activities-invoke').on('click', function () {
+                var items = [];
+
+                $.get("Home/GetAllDynamic", $.param({
+                    fields: ["Activity"]
+                }, true)).done(function (json) {
+                    var acts = JSON.parse(JSON.stringify(json)).Activity
+
+                    for (var i = 0; i < acts.length; i++) {
+                        items.push(`<!-- Step Item -->
+                            <li class="step-item">
+                                <div class="step-content-wrapper">
+                                    <span class="step-icon step-icon-pseudo step-icon-soft-dark"></span>
+                            
+                                    <div class="step-content">
+                                        <h5 class="mb-1">${acts[i].activityName}</h5>
+                            
+                                        <p class="font-size-sm mb-1">${acts[i].activityDescription}</p>
+                            
+                                        <small class="text-muted text-uppercase">${acts[i].updatedDate}</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- End Step Item -->`);
+                    }
+                    $('#user-activities').html(items.join(''))
+                });
+            });
+        });
+    </script>
+</body>
+</html>

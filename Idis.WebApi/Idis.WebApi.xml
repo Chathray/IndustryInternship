@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Idis.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:Idis.WebApi.CalendarController.CreateEvent(Idis.WebApi.EventModel,System.Int32)">
+            <summary>
+            Create a new event
+            </summary>
+            <param name="model">Event info model</param>
+            <param name="creatorId">User Id, who create</param>
+            <returns>Status code</returns>
+        </member>
+        <member name="M:Idis.WebApi.CalendarController.GetWhitelist">
+            <summary>
+            Get whitelist
+            </summary>
+            <remarks>Get list of intern by format [src,value]</remarks>
+            <returns>Dynamic object</returns>
+        </member>
+        <member name="M:Idis.WebApi.CalendarController.GetEventTypes">
+            <summary>
+            Get event types
+            </summary>
+            <remarks>Get all event types list</remarks>
+            <returns>List of event type</returns>
+        </member>
+        <member name="M:Idis.WebApi.CalendarController.GetEvents">
+            <summary>
+            Get events
+            </summary>
+            <remarks>Get all event list</remarks>
+            <returns>List of event</returns>
+        </member>
+        <member name="M:Idis.WebApi.CalendarController.GetJointEvents(System.Int32)">
+            <summary>
+            Get joint events
+            </summary>
+            <remarks>Get joint events given intern Id</remarks>
+            <param name="internId">Intern Id</param>
+            <returns>List of joint event of a intern</returns>
+        </member>
+        <member name="M:Idis.WebApi.InternController.GetJointTrainings(System.Int32)">
+            <summary>
+            Get Training list of a intern
+            </summary>
+            <remarks>Awesomeness!</remarks>
+            <param name="internId" example="7">The intern id</param>
+            <response code="200">List has been retrieved</response>
+            <response code="400">Bad request, please try later</response>
+        </member>
+        <member name="M:Idis.WebApi.InternController.CountByIndex(System.Int32)">
+            <summary>
+            Count rows in a table/schema
+            </summary>
+            <remarks>Count rows in a table/schema given table/schema Id</remarks>
+            <param name="index">Id of schema to count</param>
+            <returns>Number of rows given table index</returns>
+        </member>
+        <member name="M:Idis.WebApi.InternController.GetInternInfo(System.Int32)">
+            <summary>
+            Get intern info
+            </summary>
+            <remarks>Get intern info given internId</remarks>
+            <param name="id">Id of a intern</param>
+            <returns>Intern info</returns>
+        </member>
+        <member name="M:Idis.WebApi.InternController.GetInternDetail(System.Int32)">
+            <summary>
+            Get intern detail info
+            </summary>
+            <remarks>Get intern detail info given internId</remarks>
+            <param name="id">Id of a intern</param>
+            <returns>Intern detail</returns>
+        </member>
+        <member name="M:Idis.WebApi.InternController.GetTrainingContent(System.Int32)">
+            <summary>
+            Get training content
+            </summary>
+            <remarks>Get training content given Training Id</remarks>
+            <param name="id">Training Id</param>
+            <returns>Training data content</returns>
+        </member>
+        <member name="M:Idis.WebApi.InternController.GetPassedCount">
+            <summary>
+            Get passed count
+            </summary>
+            <remarks>Get number of intern passed an internship</remarks>
+            <returns>Number of passed intern</returns>
+        </member>
+        <member name="M:Idis.WebApi.QuestionController.DeleteQuestion(System.Int32)">
+            <summary>
+            Delete a question
+            </summary>
+            <param name="id">Question Id</param>
+            <returns>True or False</returns>
+        </member>
+        <member name="M:Idis.WebApi.QuestionController.UpdateQuestion(Idis.Application.QuestionModel)">
+            <summary>
+            Update a question
+            </summary>
+            <param name="model">Question model</param>
+            <returns>True or False</returns>
+        </member>
+        <member name="M:Idis.WebApi.UserController.Authenticate(Idis.WebApi.AuthenticationModel)">
+            <summary>
+            Validate user access
+            </summary>
+            <remarks>Awesomeness!</remarks>
+            <response code="200">Successful Authentication</response>
+            <response code="500">Oops! Can't check your info right now</response>
+        </member>
+        <member name="M:Idis.WebApi.UserController.Register(Idis.WebApi.RegisterModel)">
+            <summary>
+            New user account registration
+            </summary>
+            <remarks>Create a user account in Idis!</remarks>
+            <param name="model" example="123">The user model</param>
+            <response code="200">Successful registration</response>
+            <response code="500">Oops! Can't register your info right now</response>
+        </member>
+        <member name="M:Idis.WebApi.UserController.UserList">
+            <summary>
+            Retrieves a list of User
+            </summary>
+            <remarks>Awesomeness!</remarks>
+            <response code="200">Retrieved list of existing users in the system</response>
+        </member>
+        <member name="M:Idis.WebApi.UserController.DeleteUser(System.Int32)">
+            <summary>
+            Delete a user
+            </summary>
+            <remarks>Delete a user given UserId</remarks>
+            <param name="id">User Id</param>
+            <returns>True or False</returns>
+        </member>
+        <member name="M:Idis.WebApi.UserController.UserUpdatePassword(Idis.WebApi.PasswordUpdateModel)">
+            <summary>
+            Update password
+            </summary>
+            <remarks>Update password given User Id</remarks>
+            <param name="model">Password update model</param>
+            <returns>Status code: 200, 400 or 500</returns>
+        </member>
+        <member name="M:Idis.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+        </member>
+        <member name="M:Idis.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+        </member>
+    </members>
+</doc>

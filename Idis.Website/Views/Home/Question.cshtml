@@ -1,0 +1,91 @@
+﻿@using Idis.Application
+@model IList<QuestionModel>
+@{
+    int count = Model.Count;
+    int index = 0;
+    bool still = true;
+
+    string distict;
+}
+
+@section Scripts{
+    <script src="/js/script-section-question.js"></script>
+}
+
+
+<!-- Page Header -->
+<div class="pl-0">
+    <div class="row align-items-end">
+        <div class="col-sm mb-2 mb-sm-0">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-no-gutter">
+                    <li class="breadcrumb-item"><a class="breadcrumb-link" href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Q & A</li>
+                </ol>
+            </nav>
+            <h3 class="page-header-title mb-5">Questions & Answers</h3>
+        </div>
+
+        <div class="col-sm-auto">
+            <a class="btn btn-sm btn-primary mb-4" onclick="CreateQuestion()">
+                <i class="tio-help-outlined"></i> Create one
+            </a>
+        </div>
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Page Header -->
+
+@{
+    if (count > 0)
+        distict = Model.First().Group;
+    else
+    {
+        <p>There are no questions to show.</p>
+        return;
+    }
+}
+
+@while (still)
+{
+    <div class="pl-0 my-3 h4"><span class="legend-indicator bg-success"></span>@distict</div>
+    <div class="accordion mx-0" id="accordionE">
+
+        @for (; index < count; index++)
+        {
+            @if (Model[index].Group != distict)
+            {
+                distict = Model[index].Group;
+                break;
+            }
+
+            <div class="card question-item" data-id="@Model[index].QuestionId">
+                <a class="pt-4 px-4 pb-3 card-btn btn-block collapsed" href="javascript:;" data-toggle="collapse" data-target="#question_@Model[index].QuestionId" aria-expanded="false" aria-controls="question_@Model[index].QuestionId">
+                    <p class="h5">Hỏi: @Html.DisplayFor(o => Model[index].InData)</p>
+                    <span class="ml-2 card-btn-toggle">
+                        <span class="card-btn-toggle-default">
+                            <i class="tio-add"></i>
+                        </span>
+                        <span class="card-btn-toggle-active">
+                            <i class="tio-remove"></i>
+                        </span>
+                    </span>
+                </a>
+
+                <div id="question_@Model[index].QuestionId" class="collapse">
+                    <div class="px-4">
+                        <p><strong>Đáp: </strong>@Html.Raw(Model[index].OutData)</p>
+                    </div>
+                </div>
+            </div>
+            @if (index == count - 1) still = false;
+        }
+    </div>
+}
+
+<div class="dropdown-menu dropdown-menu-sm" id="context-menu">
+    <a data-id="1" class="dropdown-item text-danger" href="javascript:;">Delete</a>
+    <a data-id="2" class="dropdown-item" href="javascript:;">Edit</a>
+    <div class="dropdown-divider"></div>
+    <a data-id="3" class="dropdown-item" href="javascript:;">Cancel</a>
+</div>

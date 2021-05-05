@@ -1,0 +1,359 @@
+﻿@model CalendarViewModel
+
+@section Scripts{
+    <script src="/js/script-section-calendar.js"></script>
+}
+
+<!-- Page Header -->
+<div class="pl-0">
+    <div class="row align-items-end">
+        <div class="col-sm mb-2 mb-sm-0">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-no-gutter">
+                    <li class="breadcrumb-item"><a class="breadcrumb-link" href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Calendar</li>
+                </ol>
+            </nav>
+            <h3 class="page-header-title mb-5">Calendar</h3>
+        </div>
+
+        <div class="col-sm-auto">
+            <a class="btn btn-sm btn-primary mb-4" data-toggle="modal" data-target="#addEventToCalendarModal">
+                <i class="tio-add-event"></i> Create event
+            </a>
+        </div>
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Page Header -->
+
+<div class="px-0">
+    <!-- Custom Header -->
+    <div class="row align-items-sm-center mb-4">
+        <div class="col-lg-5 mb-2 mb-lg-0">
+            <div class="d-flex align-items-center">
+                <button type="button" class="btn btn-white mr-3" data-toggle="tooltip" data-placement="top" title="" data-fc-today>Today</button>
+
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary btn-no-focus rounded-circle mr-1" data-fc-prev-month data-toggle="tooltip" data-placement="top" title="Previous month">
+                    <i class="tio-chevron-left"></i>
+                </button>
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary btn-no-focus rounded-circle ml-1" data-fc-next-month data-toggle="tooltip" data-placement="top" title="Next month">
+                    <i class="tio-chevron-right"></i>
+                </button>
+
+                <div class="ml-3">
+                    <h4 class="h3 mb-0" data-fc-title></h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="d-sm-flex align-items-sm-center">
+                <!-- Input Group -->
+                <div class="input-group input-group-merge mr-2 mb-2 mb-sm-0">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="tio-search"></i>
+                        </div>
+                    </div>
+                    <input type="text" id="filter-by-title" class="form-control" placeholder="Search by title">
+                </div>
+                <!-- End Input Group -->
+                <!-- Unfold -->
+                <div class="hs-unfold mr-2">
+                    <a class="js-hs-unfold-invoker btn btn-white dropdown-toggle" href="javascript:;"
+                       data-hs-unfold-options='{
+                     "target": "#calendarFilterDropdown",
+                     "type": "css-animation"
+                   }'>
+                        <i class="tio-filter-list mr-1"></i> Filter
+                    </a>
+
+                    <div id="calendarFilterDropdown" class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-card" style="min-width: 15rem;">
+                        <!-- Card -->
+                        <div class="card">
+                            <div class="card-body">
+                                <small class="card-subtitle">My calendars</small>
+
+                                @foreach (var item in Model.EvenTypes)
+                                {
+                                    <!-- Custom Checkbox -->
+                                    <div class="custom-control custom-checkbox checkbox-outline-@item.Color mb-2" data-filter>
+                                        <input type="checkbox" id="calendar@{@item.Type}Check" class="custom-control-input indeterminate-checkbox" value="@item.ClassName" checked>
+                                        <label class="custom-control-label" for="calendar@{@item.Type}Check">@item.Type</label>
+                                    </div>
+                                    <!-- End Custom Checkbox -->
+                                }
+
+                            </div>
+                        </div>
+                        <!-- End Card -->
+                    </div>
+                </div>
+                <!-- End Unfold -->
+                <!-- Unfold -->
+                <div class="hs-unfold mr-2">
+                    <a class="js-hs-unfold-invoker btn btn-white dropdown-toggle" href="javascript:;"
+                       data-hs-unfold-options='{
+                     "target": "#calendarEventsDropdown",
+                     "type": "css-animation"
+                   }'>
+                        <i class="tio-event mr-1"></i> Events
+                    </a>
+
+                    <div id="calendarEventsDropdown" class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-sm-right dropdown-card" style="min-width: 15rem;">
+                        <!-- Card -->
+                        <div class="card">
+                            <div class="card-body card-body-height">
+                                <small class="card-subtitle">Drag these onto the calendar:</small>
+
+                                <!-- External Events -->
+                                <div id="external-events" class="fullcalendar-custom">
+                                    <!-- Event -->
+                                    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event fc-daygrid-inline-block-event fullcalendar-custom-event-hs-team'
+                                         data-event='{
+                               "title": "Open a new task on Jira",
+                               "image": "/img/frontapp.svg",
+                               "className": "",
+                               "forceEvent": true
+                             }'>
+                                        <div class='fc-event-title'>
+                                            <div class='d-flex align-items-center'>
+                                                <img class="avatar avatar-xss mr-2" src="~/img/frontapp.svg" alt="Image Description">
+                                                <span>Open a new task on Jira</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Event -->
+                                    <!-- Event -->
+                                    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event fc-daygrid-inline-block-event fullcalendar-custom-event-reminders'
+                                         data-event='{
+                               "title": "Send weekly invoice to John",
+                               "image": "/img/google-webdev.svg",
+                               "className": "fc-event-success",
+                               "forceEvent": true
+                             }'>
+                                        <div class='fc-event-title'>
+                                            <div class='d-flex align-items-center'>
+                                                <img class="avatar avatar-xss mr-2" src="~/img/google-webdev.svg" alt="Image Description">
+                                                <span>Send weekly invoice to John</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Event -->
+                                </div>
+                                <!-- End External Events -->
+                            </div>
+                        </div>
+                        <!-- End Card -->
+                    </div>
+                </div>
+                <!-- End Unfold -->
+                <!-- Select2 -->
+                <select class="js-select2-custom custom-select" size="1" style="opacity: 0;" data-fc-grid-view
+                        data-hs-select2-options='{
+                        "minimumResultsForSearch": "Infinity",
+                        "width": "100px"
+                      }'>
+                    <option value="dayGridMonth">Month</option>
+                    <option value="timeGridWeek">Week</option>
+                    <option value="timeGridDay">Day</option>
+                    <option value="listWeek">List</option>
+                </select>
+                <!-- End Select2 -->
+            </div>
+        </div>
+    </div>
+    <!-- End Custom Header -->
+    <!-- Fullcalendar -->
+    <div id="js-fullcalendar" class="fullcalendar-custom"></div>
+    <!-- End Fullcalendar -->
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addEventToCalendarModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form id="create-event" asp-controller="Calendar" asp-action="CreateEvent">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-close">
+                    <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal" aria-label="Close">
+                        <i class="tio-clear tio-lg"></i>
+                    </button>
+                </div>
+                <!-- End Header -->
+                <!-- Body -->
+                <div class="modal-body">
+                    <!-- Media -->
+                    <div class="media">
+                        <label for="eventTitleLabel" class="sr-only">Title</label>
+
+                        <textarea asp-for="Title" id="eventTitleLabel" required class="form-control form-control-title" placeholder="Add title"></textarea>
+                    </div>
+                    <!-- End Media -->
+
+                    <div class="row form-group">
+                        <div class="col-sm-3 mb-2 mb-sm-0">
+                            <div class="media align-items-center mt-2">
+                                <i class="tio-format-points nav-icon"></i>
+
+                                <div class="media-body">Event type</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <!-- Select -->
+                            <select asp-for="Type" required class="js-select2-custom custom-select" size="1" style="opacity: 0;" id="eventColorLabel"
+                                    data-hs-select2-options='{
+                          "minimumResultsForSearch": "Infinity",
+                          "placeholder": "Select event color",
+                          "dropdownAutoWidth": true,
+                          "width": true
+                        }'>
+                                @foreach (var item in Model.EvenTypes)
+                                {
+                                    <option value="@item.ClassName" selected data-option-template='<span class="legend-indicator bg-@item.Color"></span>@item.Type'>@item.Type</option>
+                                }
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                    </div>
+                    <!-- End Row -->
+
+                    <div class="row form-group">
+                        <div class="col-sm-3 mb-2 mb-sm-0">
+                            <div class="media align-items-center mt-2">
+                                <i class="tio-event nav-icon"></i>
+
+                                <div class="media-body">Deadline</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <label for="eventDateRangeLabel" class="sr-only">Date</label>
+
+                            <!-- Flatpickr -->
+                            <input asp-for="Deadline" type="text" id="eventDateRangeLabel" required class="js-flatpickr form-control flatpickr-custom mb-2" placeholder="Select dates"
+                                   data-hs-flatpickr-options='{
+                         "dateFormat": "d/m/Y",
+                         "mode": "range",
+                         "minDate": "01/01/2020"
+                       }'>
+                            <!-- End Flatpickr -->
+
+                            <label for="eventRepeatLabel" class="text-body mr-2 mb-0">Repeat:</label>
+
+                            <!-- Select -->
+                            <select asp-for="RepeatField" class="js-select2-custom" id="eventRepeatLabel"
+                                    data-hs-select2-options='{
+                          "minimumResultsForSearch": "Infinity",
+                          "customClass": "custom-select custom-select-sm",
+                          "dropdownAutoWidth": true,
+                          "width": true,
+                          "placeholder":"Select one"
+                        }'>
+                                <option value="everyday">Everyday</option>
+                                <option value="weekdays">Weekdays</option>
+                                <option value="never">Never</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                    </div>
+                    <!-- End Row -->
+
+                    <div class="row form-group">
+                        <div class="col-sm-3 mb-2 mb-sm-0">
+                            <div class="media align-items-center mt-2">
+                                <i class="tio-group-senior nav-icon"></i>
+
+                                <div class="media-body">Guests</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <label for="eventGestsLabel" class="sr-only">Add guests</label>
+
+                            <!-- Tagify -->
+                            <input asp-for="GestsField" required class="tagify-form-control form-control" id="eventGestsLabel" placeholder="Add guests" aria-label="Add guests"
+                                   data-hs-tagify-options='{
+                         "delimiters": null,
+                         "whitelist": @Model.Whitelist,
+                         "dropdown": {
+                           "enabled": 0,
+                           "classname": "tagify__dropdown__menu"
+                         }
+                       }'>
+                            <!-- End Tagify -->
+                        </div>
+                    </div>
+                    <!-- End Row -->
+
+                    <div class="row form-group">
+                        <div class="col-sm-3 mb-2 mb-sm-0">
+                            <div class="media align-items-center mt-2">
+                                <i class="tio-poi nav-icon"></i>
+
+                                <div class="media-body">Location</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <label for="eventLocationLabel" class="sr-only">Add location</label>
+
+                            <input asp-for="EventLocationLabel" type="text" class="form-control" id="eventLocationLabel" placeholder="Add location" aria-label="Add location">
+                        </div>
+                    </div>
+                    <!-- End Row -->
+
+                    <div class="row form-group">
+                        <div class="col-sm-3 mb-2 mb-sm-0">
+                            <div class="media align-items-center mt-2">
+                                <i class="tio-text-left nav-icon"></i>
+
+                                <div class="media-body">Description</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <label for="eventDescriptionLabel" class="sr-only">Add description</label>
+
+                            <textarea asp-for="EventDescriptionLabel" id="eventDescriptionLabel" class="form-control" placeholder="Add description"></textarea>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+
+                    <div class="row">
+                        <div class="col-sm-3 mb-2 mb-sm-0">
+                            <div class="media align-items-center mt-2">
+                                <i class="tio-user-big-outlined nav-icon"></i>
+
+                                <div class="media-body">Created by</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <!-- Media -->
+                            <a class="d-inline-flex align-items-center" href="/Profile">
+                                <div class="avatar avatar-sm avatar-circle mr-3">
+                                    <img id="user-ava" class="avatar-img" src="~/img/avatar/_user.jpg" alt="Image Description">
+                                </div>
+                                <div class="media-body"><span class="h5 text-hover-primary">@Model.Creator</span></div>
+                            </a>
+                            <!-- End Media -->
+                        </div>
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <!-- End Body -->
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button type="button" id="discardFormt" class="btn btn-white" data-dismiss="modal">Discard</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <!-- End Footer -->
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- End Modal -->

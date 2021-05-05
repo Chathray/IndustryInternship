@@ -1,0 +1,276 @@
+﻿<header id="header" class="navbar navbar-expand-xl navbar-fixed navbar-height navbar-flush navbar-container navbar-bordered  ">
+    <div class="js-mega-menu navbar-nav-wrap">
+        <div class="navbar-brand-wrapper">
+            <!-- Logo -->
+
+            <a class="navbar-brand" href="~/" aria-label="Front">
+                <img class="navbar-brand-logo" src="~/img/TMA-logo1.png" alt="Logo">
+            </a>
+
+            <!-- End Logo -->
+        </div>
+
+        <!-- Secondary Content -->
+        <div class="navbar-nav-wrap-content-right">
+            <!-- Navbar -->
+            <ul class="navbar-nav align-items-center flex-row">
+                <li class="nav-item d-none d-sm-inline-block">
+                    <!-- Notification -->
+                    <div class="hs-unfold">
+                        <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle" href="javascript:;" onclick="OpenToastMaster()">
+                            <i class="tio-notifications-on-outlined"></i>
+                        </a>
+                    </div>
+                    <!-- End Notification -->
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <!-- Apps -->
+                    <div class="hs-unfold">
+                        <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle" href="javascript:;"
+                           data-hs-unfold-options='{
+                 "target": "#appsDropdown",
+                 "type": "css-animation"
+               }'>
+                            <i class="tio-menu-vs-outlined"></i>
+                        </a>
+
+                        <div id="appsDropdown" class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right navbar-dropdown-menu" style="height: 300px;">
+                            <!-- Header -->
+                            <div class="card-header">
+                                <span class="card-title h4">Web apps &amp; services</span>
+                            </div>
+                            <!-- End Header -->
+                            <!-- Body -->
+                            <div class="card-body card-body-height">
+                                <!-- Nav -->
+                                <div class="nav nav-pills flex-column">
+                                    <a class="nav-link" href="https://webmail.sdc.edu.vn/">
+                                        <div class="media align-items-center">
+                                            <span class="mr-3">
+                                                <img class="avatar avatar-xs avatar-4by3" src="/img/frontapp.svg" alt="Image Description">
+                                            </span>
+                                            <div class="media-body text-truncate">
+                                                <span class="h5 mb-0">Zimbra Web Client</span>
+                                                <span class="d-block font-size-sm text-body">Security and control across Cloud</span>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a class="nav-link" href="https://www.atlassian.com/">
+                                        <div class="media align-items-center">
+                                            <span class="mr-3">
+                                                <img class="avatar avatar-xs avatar-4by3" src="/img/atlassian.svg" alt="Image Description">
+                                            </span>
+                                            <div class="media-body text-truncate">
+                                                <span class="h5 mb-0">Atlassian</span>
+                                                <span class="d-block font-size-sm text-body">Security and control across Cloud</span>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a class="nav-link" href="https://web.dev/">
+                                        <div class="media align-items-center">
+                                            <span class="mr-3">
+                                                <img class="avatar avatar-xs avatar-4by3" src="/img/google-webdev.svg" alt="Image Description">
+                                            </span>
+                                            <div class="media-body text-truncate">
+                                                <span class="h5 mb-0">Web.dev</span>
+                                                <span class="d-block font-size-sm text-body">Work involved in developing a website</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- End Nav -->
+                            </div>
+                            <!-- End Body -->
+                        </div>
+                    </div>
+                    <!-- End Apps -->
+                </li>
+
+                <li class="nav-item d-none d-sm-inline-block">
+                    <!-- Activity -->
+                    <div class="hs-unfold">
+                        <a id="activities-invoke" class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle" href="javascript:;"
+                           data-hs-unfold-options='{
+                "target": "#activitySidebar",
+                "type": "css-animation",
+                "animationIn": "fadeInLeft",
+                "animationOut": "fadeOutLeft",
+                "hasOverlay": true,
+                "smartPositionOff": true
+               }'>
+                            <i class="tio-voice-line"></i>
+                        </a>
+                    </div>
+                    <!-- Activity -->
+                </li>
+
+                <li class="nav-item">
+                    <!-- Account -->
+                    <div class="hs-unfold">
+                        <a class="js-hs-unfold-invoker navbar-dropdown-account-wrapper" href="javascript:;"
+                           data-hs-unfold-options='{
+                 "target": "#accountNavbarDropdown",
+                 "type": "css-animation"
+               }'>
+                            <div class="avatar avatar-sm avatar-circle">
+                                <img id="user-ava1" class="avatar-img" src="/img/avatar/_user.jpg" alt="Image Description">
+                                <span id="user-status" class="avatar-status avatar-sm-status"></span>
+                            </div>
+                        </a>
+
+                        <div id="accountNavbarDropdown" class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right navbar-dropdown-menu navbar-dropdown-account" style="width: 16rem;">
+                            <div class="dropdown-item-text">
+                                <div class="media align-items-center">
+                                    <div class="avatar avatar-sm avatar-circle mr-2">
+                                        <img id="user-ava2" class="avatar-img" alt="Image Description">
+                                    </div>
+                                    <div class="media-body">
+                                        <span id="uuid" data-id="@ViewBag.id" class="card-title h5">@ViewBag.fullname</span>
+                                        <span class="card-text">@ViewBag.email</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+
+                            <!-- Unfold -->
+                            <div class="hs-unfold w-100">
+                                <a class="js-hs-unfold-invoker navbar-dropdown-submenu-item dropdown-item d-flex align-items-center" href="javascript:;"
+                                   data-hs-unfold-options='{
+                     "target": "#navSubmenuPagesAccountDropdown1",
+                     "event": "hover"
+                   }'>
+                                    <span class="text-truncate pr-2" title="Set status">Set status</span>
+                                    <i class="tio-chevron-right navbar-dropdown-submenu-item-invoker ml-auto"></i>
+                                </a>
+
+                                <div id="navSubmenuPagesAccountDropdown1" class="hs-unfold-content hs-unfold-has-submenu dropdown-unfold dropdown-menu navbar-dropdown-sub-menu">
+                                    <a data-id="1" class="dropdown-item" href="Javascript:;">
+                                        <span class="legend-indicator bg-success mr-1"></span>
+                                        <span class="text-truncate pr-2">Available</span>
+                                    </a>
+                                    <a data-id="2" class="dropdown-item" href="Javascript:;">
+                                        <span class="legend-indicator bg-warning mr-1"></span>
+                                        <span class="text-truncate pr-2">Busy</span>
+                                    </a>
+                                    <a data-id="3" class="dropdown-item" href="Javascript:;">
+                                        <span class="legend-indicator bg-danger mr-1"></span>
+                                        <span class="text-truncate pr-2">Away</span>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a data-id="4" class="dropdown-item" href="Javascript:;">
+                                        <span class="text-truncate pr-2">Reset status</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- End Unfold -->
+
+                            <a class="dropdown-item" href="/Profile">
+                                <span class="text-truncate pr-2" title="Profile &amp; account">Profile &amp; account</span>
+                            </a>
+
+                            <a class="dropdown-item" href="/Settings">
+                                <span class="text-truncate pr-2" title="Settings">Settings</span>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item" href="https://www.tma.vn/">
+                                <div class="media align-items-center">
+                                    <div class="avatar avatar-sm avatar-dark avatar-circle mr-2">
+                                        <span class="avatar-initials">M</span>
+                                    </div>
+                                    <div class="media-body">
+                                        <span class="card-title h5">TMA Solutions <span class="badge badge-primary badge-pill text-uppercase ml-1">PRO</span></span>
+                                        <span class="card-text">tma.vn</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <!-- Unfold -->
+                            <div class="hs-unfold w-100">
+                                <a class="js-hs-unfold-invoker navbar-dropdown-submenu-item dropdown-item d-flex align-items-center" href="javascript:;"
+                                   data-hs-unfold-options='{
+                     "target": "#navSubmenuPagesAccountDropdown2",
+                     "event": "hover"
+                   }'>
+                                    <span class="text-truncate pr-2" title="Customization">Customization</span>
+                                    <i class="tio-chevron-right navbar-dropdown-submenu-item-invoker  ml-auto"></i>
+                                </a>
+
+                                <div id="navSubmenuPagesAccountDropdown2" class="hs-unfold-content hs-unfold-has-submenu dropdown-unfold dropdown-menu navbar-dropdown-sub-menu">
+                                    <a class="dropdown-item" href="#">
+                                        <span class="text-truncate pr-2" title="Invite people">Invite people</span>
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="text-truncate pr-2" title="Analytics">Analytics</span>
+                                        <i class="tio-open-in-new"></i>
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="text-truncate pr-2" title="Customize Front">Customize Front</span>
+                                        <i class="tio-open-in-new"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- End Unfold -->
+
+                            <a class="dropdown-item" href="#">
+                                <span class="text-truncate pr-2" title="Manage team">Manage team</span>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a id="signout-cmd" class="dropdown-item" href="javascript:;">
+                                <span class="text-truncate pr-2" title="Sign out">Sign out</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End Account -->
+                </li>
+
+                <li class="nav-item">
+                    <!-- Toggle -->
+                    <button type="button" class="navbar-toggler btn btn-ghost-secondary rounded-circle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navbarNavMenu" data-toggle="collapse" data-target="#navbarNavMenu">
+                        <i class="tio-menu-hamburger"></i>
+                    </button>
+                    <!-- End Toggle -->
+                </li>
+            </ul>
+            <!-- End Navbar -->
+        </div>
+        <!-- End Secondary Content -->
+        <!-- Navbar -->
+        <div class="navbar-nav-wrap-content-left collapse navbar-collapse" id="navbarNavMenu">
+            <div class="navbar-body">
+                <ul class="navbar-nav flex-grow-1">
+                    <!-- Home -->
+                    <li>
+                        <a class="navbar-nav-link nav-link @ViewData["page-1"]" href="/Home">
+                            <i class="tio-home-vs-1-outlined nav-icon"></i> Home
+                        </a>
+                    </li>
+                    <!-- End Home -->
+                    <!-- Calendar -->
+                    <li>
+                        <a class="navbar-nav-link nav-link @ViewData["page-2"]" href="/Calendar">
+                            <i class="tio-agenda-view-outlined nav-icon"></i> Calendar
+                        </a>
+                    </li>
+                    <!-- End Calendar -->
+                    <!-- QA -->
+                    <li>
+                        <a class="navbar-nav-link nav-link @ViewData["page-3"]" href="/Question">
+                            <i class="tio-help-outlined nav-icon"></i> Q & A
+                        </a>
+                    </li>
+                    <!-- End QA -->
+                </ul>
+            </div>
+        </div>
+        <!-- End Navbar -->
+    </div>
+</header>
