@@ -1,42 +1,31 @@
 ﻿// #region :Joint
 function JointEvents(iid) {
-    $.ajax({
-        method: "GET",
-        url: "calendar/getjointevents",
-        data: { internId: iid }
-    }).done(function (msg) {
-
-        var events = "";
-        var d2 = JSON.parse(msg);
-
-        if (d2.length > 0)
-            $.each(d2, function (i, data) {
-                events += `<li data-id = ${i}>${data}</li>`;
-            })
-        else {
-            events = "This person is not involved in any activities."
-        }
-
-        $.alert(events)
-    });
+    $.getJSON('calendar/getjointevents/?internId=' + iid)
+        .done(function (joint_events) {
+            var events = ""
+            if (joint_events.length > 0)
+                $.each(joint_events, function (i, data) {
+                    events += `<li data-id = ${i}>${data}</li>`
+                })
+            else {
+                events = "This person is not involved in any activities."
+            }
+            $.alert(events)
+        });
 }
 function JointTrainings(iid) {
-    $.ajax({
-        method: "GET",
-        url: "home/GetJointTrainings",
-        data: { internId: iid }
-    }).done(function (data) {
-        if (data.length > 0) {
-            var model = JSON.parse(JSON.stringify(data))
-            var tras = []
-            for (var i = 1; i < model.length; i++) {
-                tras.push("<li data-id=" + i + ">" + model[i].traName + "</li>")
+    $.getJSON('home/GetJointTrainings/?internId=' + iid)
+        .done(function (model) {
+            if (model.length > 0) {
+                var tras = []
+                for (var i = 0; i < model.length; i++) {
+                    tras.push("<li data-id=" + i + ">" + model[i].traName + "</li>")
+                }
+                $.alert(tras.join(''))
             }
-            $.alert(tras.join(''))
-        }
-        else
-            $.alert('No trainings to show')
-    });
+            else
+                $.alert('No trainings to show')
+        });
 }
 // #endregion :Joint
 
@@ -77,18 +66,13 @@ function InternDelete(iid) {
     });
 }
 function InternUpdate(iid) {
+    $.getJSON('home/getinterninfo/?id=' + iid)
+        .done(function (intern_info) {
+            $('#cui-form').attr('action', '/internupdate/' + iid);
 
-    $.ajax({
-        method: "GET",
-        url: "home/getinterninfo",
-        data: { id: iid }
-    }).done(function (json) {
-        $('#cui-form').attr('action', '/internupdate/' + iid);
-        let intern_info = JSON.parse(json);
-
-        InternSetModalData(intern_info);
-        $("#exampleModal").modal();
-    });
+            InternSetModalData(intern_info);
+            $("#exampleModal").modal();
+        });
 }
 function InternEvaluate(iid) {
     $.ajax({
