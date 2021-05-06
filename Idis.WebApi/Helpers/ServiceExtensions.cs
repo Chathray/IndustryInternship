@@ -26,14 +26,13 @@ namespace Idis.WebApi
             {
                 setup.SwaggerDoc("v2", new OpenApiInfo
                 {
-                    Title = "Insutry Internship OpenAPI",
+                    Title = "Industry Internship OpenAPI",
                     Version = "v2",
                     Description = "<p>This is a sample server Idis server.  You can find out more about Swagger at <a rel='noopener noreferrer' target='_blank' href='http://swagger.io'>http://swagger.io</a> or on <a rel='noopener noreferrer' target='_blank' href='http://swagger.io/irc/'>irc.freenode.net, #swagger</a>.  For this sample, you can use the api key <code>special-key</code> to test the authorization filters.</p>",
                     TermsOfService = new Uri("http://tempuri.org/terms"),
                     Contact = new OpenApiContact
                     {
-                        Url = new Uri("https://example.com"),
-                        Name = "Idis",
+                        Name = "",
                         Email = "chithachnguyen@outlook.com"
                     },
                     License = new OpenApiLicense
@@ -45,7 +44,7 @@ namespace Idis.WebApi
 
                 setup.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Insutry Internship OpenAPI",
+                    Title = "Industry Internship OpenAPI",
                     Version = "v1",
                     Description = "An API to perform Industry Internship operations",
                 });

@@ -77,7 +77,6 @@ namespace Idis.WebApi
                 c.DocExpansion(DocExpansion.List);
                 c.EnableDeepLinking();
                 c.EnableFilter();
-                c.HeadContent = "1212121121212";
                 c.MaxDisplayedTags(5);
                 c.ShowExtensions();
                 c.ShowCommonExtensions();
@@ -90,11 +89,11 @@ namespace Idis.WebApi
                 c.UseRequestInterceptor("(request) => { return request; }");
                 c.UseResponseInterceptor("(response) => { return response; }");
 
-                c.SwaggerEndpoint("/idis/v1/docs.json", "Version 1 Docs");
-                c.SwaggerEndpoint("/idis/v2/docs.json", "Version 2 Docs");
+                c.SwaggerEndpoint("/idis/v2/docs.json", "Idis OpenAPI Version 2");
+                c.SwaggerEndpoint("/idis/v1/docs.json", "Idis OpenAPI Version 1");
 
                 c.RoutePrefix = "swagger";
-                c.DocumentTitle = "Insutry Internship Open API";
+                c.DocumentTitle = "Industry Internship Open API";
 
                 c.IndexStream = () => GetType().Assembly.GetManifestResourceStream("Idis.WebApi.Swagger.docs.html");
             });

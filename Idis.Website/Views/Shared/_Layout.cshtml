@@ -115,12 +115,12 @@
             $.confirm({
                 title: false,
                 content: `<div class="card-body">
-                            <h2 class="card-header-title mb-4">Create Toast</h2>
-                            <!-- Form Group -->
-                            <div class="form-group mb-0">
-                                <textarea id="txtToast" class="form-control" placeholder="Enter your message here" style="height: 150px;"></textarea>
-                            </div>
-                            </div>`,
+                    <h2 class="card-header-title mb-4">Create Toast</h2>
+                    <!-- Form Group -->
+                    <div class="form-group mb-0">
+                        <textarea id="txtToast" class="form-control" placeholder="Enter your message here" style="height: 150px;"></textarea>
+                    </div>
+                    </div>`,
                 columnClass: 'medium',
                 container: 'main',
                 backgroundDismiss: true,
@@ -131,8 +131,9 @@
                         btnClass: 'btn-soft-success',
                         action: function () {
                             var cont = $('#txtToast').val()
+                            var ow_name = $('#uuid').text()
                             uuid = $('#uuid').attr('data-id');
-                            SendSMS(cont, uuid);
+                            SendSMS(ow_name + ' say: ' + cont, uuid);
                         }
                     },
                 }
@@ -140,9 +141,10 @@
         }
 
         function SendSMS(message, owner) {
-            connection.invoke("ToastMaster", message, owner).catch(function (err) {
-                return console.error(err.toString());
-            });
+            connection.invoke("ToastMaster", message, owner)
+                .catch(function (err) {
+                    return console.error(err.toString());
+                });
         }
 
         var ava_url = localStorage.getItem("user_avatar");
@@ -228,12 +230,12 @@
                             <li class="step-item">
                                 <div class="step-content-wrapper">
                                     <span class="step-icon step-icon-pseudo step-icon-soft-dark"></span>
-                            
+
                                     <div class="step-content">
                                         <h5 class="mb-1">${acts[i].activityName}</h5>
-                            
+
                                         <p class="font-size-sm mb-1">${acts[i].activityDescription}</p>
-                            
+
                                         <small class="text-muted text-uppercase">${acts[i].updatedDate}</small>
                                     </div>
                                 </div>

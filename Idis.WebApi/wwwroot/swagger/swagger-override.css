@@ -44,3 +44,15 @@ body {
     padding: 0 40px;
     box-sizing: border-box;
 }
+
+
+.swagger-ui .opblock {
+    margin: 0 0 15px;
+    border: 1px solid #000;
+    border-radius: 0px;
+    box-shadow: none
+}
+
+.swagger-ui .opblock-tag {
+    border-bottom:none;
+}
