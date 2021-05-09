@@ -11,5 +11,7 @@ namespace Idis.Infrastructure
         bool UpdateBasic(User user);
         bool UserDelete(int userId);
         bool SetField(int userId, string field, dynamic value);
+        bool UnDelete(int userId);
+        int GetProfileValue(int userId);
     }
 }

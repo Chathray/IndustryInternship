@@ -17,6 +17,7 @@ namespace Idis.Website
         }
 
         #region Intern Property
+
         public string Avatar { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
@@ -29,6 +30,7 @@ namespace Idis.Website
         public int DepartmentId { get; set; }
         public int OrganizationId { get; set; }
         public int TrainingId { get; set; }
+
         #endregion End Intern Property
 
         public string Uptime { get; internal set; }

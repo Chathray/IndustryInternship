@@ -52,9 +52,13 @@ namespace Idis.Infrastructure
             return _dataShaper.ShapeData(obj, fields);
         }
 
-        public IList<T> GetAll()
+        public IList<T> GetAll(bool asNoTracking = true)
         {
-            return FindAll(false).AsNoTracking().ToList();
+            if (asNoTracking)
+                return FindAll(false).AsNoTracking().ToList();
+            else
+                return FindAll(false).AsTracking().ToList();
+
         }
 
         public IList<ExpandoObject> GetAllShaped(string fields)
@@ -63,16 +67,63 @@ namespace Idis.Infrastructure
             return _dataShaper.ShapeDatas(objs, fields);
         }
 
-        public bool Update(T entity)
+        public bool Update(T entity, string[] ignores = null)
         {
             try
             {
                 _context.Set<T>().Update(entity);
+
+                if (ignores != null)
+                {
+                    foreach (var property in ignores)
+                    {
+                        _context.Entry(entity).Property(property).IsModified = false;
+                    }
+                }
                 return SaveChanges(nameof(Update)) > 0;
             }
-            catch (InfrastructureException ex)
+            catch (InfrasException ex)
             {
-                Log.Information($"{ex.Message}");
+                Log.Error($"Func: {nameof(Update)}, {ex.Message}");
+                return false;
+            }
+        }
+
+        public bool UpdateIncluded(T entity, string[] accepted = null)
+        {
+            try
+            {
+                _context.Set<T>().Update(entity);
+
+                // Get all properties on the object
+                var properties = entity.GetType().GetProperties()
+                    .Where(x => x.CanRead)
+                    .Where(x => x.GetValue(entity, null) != null)
+                    .ToDictionary(x => x.Name, x => x.GetValue(entity, null));
+
+                if (accepted != null)
+                {
+                    foreach (var property in properties)
+                        foreach (var ok in accepted)
+                        {
+                            if (property.Key == ok)
+                            {
+                                _context.Entry(entity)
+                                    .Property(property.Key).IsModified = true;
+                            }
+                            else
+                            {
+                                _context.Entry(entity)
+                                    .Property(property.Key).IsModified = false;
+                            }
+                        }
+                }
+                var effected = SaveChanges(nameof(Update));
+                return effected > 0;
+            }
+            catch (InfrasException ex)
+            {
+                Log.Error($"Func: {nameof(UpdateIncluded)}, {ex.Message}");
                 return false;
             }
         }
@@ -116,7 +167,7 @@ namespace Idis.Infrastructure
             {
                 return _context.SaveChanges();
             }
-            catch (InfrastructureException ex)
+            catch (InfrasException ex)
             {
                 Log.Error($"Func: {funcname}, " + ex.Message);
                 return 0;

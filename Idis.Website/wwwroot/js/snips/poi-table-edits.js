@@ -7,11 +7,11 @@ $('.js-editable-table tbody tr').editable({
     buttonSelector: '.js-edit',
     maintainWidth: true,
     edit: function (values) {
-        $('.js-edit .js-edit-icon', this).removeClass('tio-edit').addClass('tio-save');
-        $(this).find('td[data-field] input').addClass('form-control form-control-sm');
+        $('.js-edit .js-edit-icon', this).removeClass('tio-edit').addClass('tio-save')
+        $(this).find('td[data-field] input').addClass('form-control form-control-sm')
     },
     save: function (values) {
-        $('.js-edit .js-edit-icon', this).removeClass('tio-save').addClass('tio-edit');
+        $('.js-edit .js-edit-icon', this).removeClass('tio-save').addClass('tio-edit')
 
         $.post("home/updatepoint", {
             model: {
@@ -21,12 +21,13 @@ $('.js-editable-table tbody tr').editable({
                 'Attitude': parseFloat(values.attitude)
             }
         }).done(function (data) {
-            $.alert("Result: " + data);
+            $.alert("Result: " + data)
+            RefreshPointView()
         }).fail(function () {
-            alert("Error");
+            alert("Error")
         });
     },
     cancel: function (values) {
         $('.js-edit .js-edit-icon', this).removeClass('tio-save').addClass('tio-edit');
     }
-});
+})

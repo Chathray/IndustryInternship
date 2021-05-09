@@ -18,10 +18,6 @@ namespace Idis.Infrastructure
 
             var user = _context.Users.SingleOrDefault(x => x.Email == email);
 
-            // check if not exists
-            if (user is null || user.IsDeleted)
-                return null;
-
             // check if password is correct
             if (!BC.Verify(password, user.PasswordHash))
                 return null;
@@ -59,6 +55,9 @@ namespace Idis.Infrastructure
                     break;
                 case nameof(user.Role):
                     user.Role = value;
+                    break;
+                case nameof(user.AvatarVisibility):
+                    user.AvatarVisibility = value;
                     break;
             }
             return SaveChanges($"Set{field}") > 0;
@@ -100,6 +99,35 @@ namespace Idis.Infrastructure
                     UPDATE users
                     SET IsDeleted = 1
                     WHERE UserId = {userId}");
+        }
+
+        public bool UnDelete(int userId)
+        {
+            return _context.Database.GetDbConnection()
+                .ExecNonQuery($@"
+                    UPDATE users
+                    SET IsDeleted = 0
+                    WHERE UserId = {userId}");
+        }
+
+        public int GetProfileValue(int userId)
+        {
+            var user = GetOne(userId);
+
+            var properties = user.GetType().GetProperties()
+                .Where(x => x.CanRead)
+                .ToDictionary(x => x.Name, x => x.GetValue(user, null));
+
+            int numOfTotal = properties.Count - 1;
+            int numOfUnset = 0;
+
+            foreach (var prop in properties)
+            {
+                if (prop.Value != null)
+                    numOfUnset += 1;
+            }
+
+            return (int)((numOfUnset / (decimal)numOfTotal) * 100);
         }
     }
 }

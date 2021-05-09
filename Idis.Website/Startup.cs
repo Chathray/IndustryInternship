@@ -78,7 +78,7 @@ namespace Idis.Website
 
             app.UseRouting();
 
-            //
+            // For Request Logging
             app.UseSerilogRequestLogging();
 
             app.UseAuthentication();

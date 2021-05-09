@@ -17,6 +17,7 @@ namespace Idis.Website
 
         public string Creator { get; set; }
 
+        public int EventId { get; set; }
         public string Title { get; set; }
         public string Type { get; set; }
         public string Deadline { get; set; }

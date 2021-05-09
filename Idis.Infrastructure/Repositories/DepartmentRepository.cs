@@ -1,5 +1,7 @@
 ﻿using Dapper;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using System.Linq;
 
 namespace Idis.Infrastructure
 {
@@ -10,25 +12,48 @@ namespace Idis.Infrastructure
 
         public bool InsertSharedTraining(int sharedId, int depId)
         {
-            var boss = _context.Departments.Find(depId);
+            var dep_object = _context.Departments.Find(depId);
 
-            if (boss is null) return false;
+            if (dep_object is null)
+                return false;
 
-            var array = boss.SharedTrainings;
+            var newShared = dep_object.SharedTrainings;
 
-            if (array is not null && array.Length > 0)
+            if (newShared is not null && newShared.Length > 0)
             {
-                if (!array.Contains("," + sharedId) && !array.Contains("" + sharedId))
-                    array = array.Insert(array.Length, "," + sharedId);
+                if (!newShared.Contains("," + sharedId)
+                 && !newShared.Contains("" + sharedId))
+                {
+                    newShared = newShared.Insert(newShared.Length, sharedId + ",");
+                }
             }
-            else array = sharedId + "";
+            else newShared = sharedId + ",";
 
-            var parameter = new DynamicParameters();
-            parameter.Add("depId", depId);
-            parameter.Add("sharedArray", array);
+            dep_object.SharedTrainings = newShared;
 
-            return _context.Database.GetDbConnection()
-                .Execute($"CALL SetSharedTraining(@depId,@sharedArray)", parameter) > 0;
+            var effected = SaveChanges(nameof(InsertSharedTraining));
+            return effected > 0;
+        }
+
+        public bool RefreshSharedTrainings(int traId)
+        {
+            var list = GetAll(false).AsList();
+
+            list.ForEach(dep =>
+            {
+                try
+                {
+                    dep.SharedTrainings = dep.SharedTrainings?.Replace($"{traId}", "");
+                    dep.SharedTrainings = dep.SharedTrainings?.Replace($",,", ",");
+                }
+                catch (InfrasException ex)
+                {
+                    Log.Error($"Func: {nameof(RefreshSharedTrainings)}, {ex.Message}");
+                }
+            });
+
+            var effected = SaveChanges(nameof(RefreshSharedTrainings));
+            return effected > 0;
         }
     }
 }

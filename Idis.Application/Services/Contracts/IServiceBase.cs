@@ -6,7 +6,10 @@ namespace Idis.Application
     {
         M GetOne(int id);
         IList<M> GetAll();
-        bool Update(M obj);
+
+        bool Update(M obj, string[] ignores = null);
+        bool UpdateIncluded(M model, string[] accepted);
+
         bool Create(M obj);
         bool Delete(int id);
     }

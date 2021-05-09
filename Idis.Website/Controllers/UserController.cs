@@ -44,7 +44,7 @@ namespace Idis.Website
             int userId = int.Parse(ViewBag.id);
 
             DataTable user = _serviceFactory.User.GetProfile(userId);
-            var model = DataExtensions.GetItem<ProfileViewModel>(user.Rows[0]);
+            var model = AppExtensions.GetItem<ProfileViewModel>(user.Rows[0]);
             return View(model);
         }
 
@@ -145,9 +145,9 @@ namespace Idis.Website
             var userId = User.Claims.ElementAt(0).Value;
             user.UserId = int.Parse(userId);
 
-            bool result = _serviceFactory.User.UpdateBasic(user);
+            bool has_success = _serviceFactory.User.UpdateBasic(user);
 
-            TempData["notification"] = "Update basic information: " + result;
+            TempData["notification"] = "Update basic information: " + has_success;
             return Redirect("/Settings");
         }
 
@@ -162,8 +162,8 @@ namespace Idis.Website
             if (user is null) goto Failed;
             else
             {
-                bool result = _serviceFactory.User.UpdatePassword(user.UserId, model.NewPassword);
-                if (result) goto Success;
+                bool has_success = _serviceFactory.User.UpdatePassword(user.UserId, model.NewPassword);
+                if (has_success) goto Success;
             }
 
         Failed:
@@ -171,17 +171,27 @@ namespace Idis.Website
             return Redirect("/Settings");
         Success:
             TempData["notification"] = "Password change success!";
+
+            var log = new ActivityModel
+            {
+                ActivityName = "Update User Password",
+                CreatedBy = user.UserId,
+                ActivityDescription = "Set User Password to " + model.NewPassword,
+            };
+
+            _serviceFactory.Activity.Create(log);
+
             return Redirect("/Settings");
         }
 
         [HttpPost]
         public async Task<bool> UserDelete(int userId)
         {
-            var result = _serviceFactory.User.UserDelete(userId);
-            if (result)
+            var success = _serviceFactory.User.UserDelete(userId);
+            if (success)
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return result;
+            return success;
         }
 
         [HttpGet("/User/GetStatus")]
@@ -192,15 +202,32 @@ namespace Idis.Website
 
             if (Request.Method == "POST")
             {
-                var result = _serviceFactory.User.SetStatus(userId, status);
-                if (result)
+                var has_success = _serviceFactory.User.SetStatus(userId, status);
+                if (has_success)
+                {
                     await _hubContext.Clients.User(userId + "")
                         .SendAsync("ClientStatus", status);
 
-                return result;
+                    var log = new ActivityModel
+                    {
+                        ActivityName = "Update User Status",
+                        CreatedBy = userId,
+                        ActivityDescription = "Set User Status to " + status,
+                    };
+
+                    _serviceFactory.Activity.Create(log);
+                }
+
+                return has_success;
             }
             else
                 return _serviceFactory.User.GetOne(userId).Status;
+        }
+
+        [HttpGet("/User/ProfileValue")]
+        public int GetProfileValue(int userId)
+        {
+            return _serviceFactory.User.GetProfileValue(userId);
         }
     }
 }

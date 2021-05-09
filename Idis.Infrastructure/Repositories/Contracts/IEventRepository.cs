@@ -8,5 +8,6 @@ namespace Idis.Infrastructure
         string GetJson();
         bool CheckOne(string title);
         bool UpdateByTitle(Event aEvent);
+        bool DeleteByTitle(string title);
     }
 }

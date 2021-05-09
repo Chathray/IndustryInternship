@@ -88,8 +88,8 @@
     <script>
 
         "use strict";
-        var connection = new signalR.HubConnectionBuilder().withUrl("/EchoHub").build();
-        var uuid;
+        let connection = new signalR.HubConnectionBuilder().withUrl("/EchoHub").build();
+        let uuid;
 
         connection.start().then(function () {
             // alert('Starting...');
@@ -110,6 +110,11 @@
             $('#user-status').addClass('avatar-status-' + status);
             localStorage.setItem('user_status', status);
         });
+
+        function Refresh(ok, result) {
+            if (ok) alert(result + ", Refresh now!");
+            window.location = window.location;
+        }
 
         function OpenToastMaster() {
             $.confirm({
@@ -138,6 +143,23 @@
                     },
                 }
             });
+        }
+
+        function CleanActivities() {
+            uuid = $('#uuid').attr('data-id');
+            connection.invoke("CleanActivities", uuid)
+                .catch(function (err) {
+                    return console.error(err.toString());
+                });
+            Refresh(true, "Clean success!");
+        }
+
+        function UpdateAvatarVisibility(sector) {
+            uuid = $('#uuid').attr('data-id');
+            connection.invoke("AvatarVisibility", sector.value, uuid)
+                .catch(function (err) {
+                    return console.error(err.toString());
+                });
         }
 
         function SendSMS(message, owner) {

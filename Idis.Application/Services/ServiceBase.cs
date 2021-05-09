@@ -23,11 +23,16 @@ namespace Idis.Application
             return ObjectMapper.Mapper.Map<IList<M>>(list);
         }
 
-        public bool Update(M model)
+        public bool Update(M model, string[] ignores)
         {
             var entity = ObjectMapper.Mapper.Map<E>(model);
-            return _base.Update(entity);
+            return _base.Update(entity, ignores);
+        }
 
+        public bool UpdateIncluded(M model, string[] accepted)
+        {
+            var entity = ObjectMapper.Mapper.Map<E>(model);
+            return _base.UpdateIncluded(entity, accepted);
         }
 
         public bool Create(M entity)

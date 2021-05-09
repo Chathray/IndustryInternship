@@ -11,6 +11,7 @@
         IEventService Event { get; }
         IEventTypeService EventType { get; }
         IQuestionService Question { get; }
+        IActivityService Activity { get; }
 
         object GetAll(string field);
     }

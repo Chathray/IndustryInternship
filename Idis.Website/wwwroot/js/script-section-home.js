@@ -66,7 +66,8 @@ function InternDelete(iid) {
     });
 }
 function InternUpdate(iid) {
-    $.getJSON('home/getinterninfo/?id=' + iid)
+     update_avatar = false;
+     $.getJSON('home/getinterninfo/?id=' + iid)
         .done(function (intern_info) {
             $('#cui-form').attr('action', '/internupdate/' + iid);
 
@@ -216,10 +217,15 @@ function InternEvaluateFirstTime(iid) {
 }
 function InternSetModalData(model) {
     $('#avatarImg').attr("src", "img/avatar/" + model.avatar);
-
     var filename = model.avatar;
     var ext = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
-    $('#avatarName').val(model.email + "." + ext);
+
+    if (update_avatar) {
+        var update_filename = model.email + "." + ext;
+        $('#avatarName').val(update_filename);
+    }
+    else
+        $('#avatarName').val(filename);
 
     $('#firstNameLabel').val(model.firstname);
     $('#lastNameLabel').val(model.lastname);
@@ -455,14 +461,11 @@ function PopupCenter(url, title, w, h) {
 }
 
 function ReadAvatarName(input) {
+    update_avatar = true;
     var filename = input.files[0]['name'];
     $('#avatarName').val(filename);
 }
 
-function Refresh(ok, result) {
-    if (ok) alert(result + ", Refresh now!");
-    window.location = window.location;
-}
 
 $(document).on('submit', '#cui-form', function () {
     var str = $('#avatarName').val();
@@ -484,6 +487,7 @@ $(document).on('submit', '#cui-form', function () {
     });
 });
 
+let update_avatar = false;
 let current_intern_id = 0;
 let eventBirth;
 let eventDuration;
@@ -513,7 +517,7 @@ $(document).on('ready', function () {
                 '<p class="mb-0">No data to show</p>' +
                 '</div>'
         },
-        pageLength: 32
+        pageLength: 36
     });
 
 
@@ -572,8 +576,13 @@ $(document).on('ready', function () {
         }
     });
 
-    var calHeight = $('.footer').height() * 11.26;
-    $('#main-docker').css('height', calHeight + 'px')
+
+    var urlParams = new URLSearchParams(location.search);
+    var page_size = urlParams.get('size');
+    if (page_size > 14) {
+        var calHeight = $('.footer').height() * 13.54;
+        $('#main-docker').css('height', calHeight + 'px');
+    }
 
     $('.js-datatable-filter').on('change', function () {
         var $this = $(this),
@@ -657,9 +666,14 @@ $(document).on('ready', function () {
         var $this = $(this),
             elVal = $this.val();
 
-        var params = new URLSearchParams(window.location.search);
-        params.set('search_string', elVal);
-        params.set('search_on', searchOn);
+        if (elVal != '') {
+            params.set('search_string', elVal);
+            params.set('search_on', searchOn);
+        }
+        else {
+            params.delete('search_string');
+            params.delete('search_on');
+        }
 
         window.location = "?" + params.toString();
     });
@@ -769,7 +783,7 @@ $(document).on('ready', function () {
 
     $('#addibtn').on("click", function (e) {
         //var type = $("#cui-submit").text(); //For button
-
+        update_avatar = false;
         $('#cui-form').attr('action', '/');
 
         $('#firstNameLabel').val("");

@@ -8,5 +8,6 @@ namespace Idis.Application
         DataTable GetEventsIntern();
         string GetJson();
         bool InsertEvent(EventModel model);
+        bool DeleteByTitle(string title);
     }
 }

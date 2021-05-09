@@ -87,6 +87,11 @@ namespace Idis.Website
             var intern = _mapper.Map<InternModel>(model);
             intern.MentorId = int.Parse(ViewBag.id);
 
+            if (intern.Avatar == "")
+            {
+                intern.Avatar = "_intern.jpg";
+            }
+
             try
             {
                 _serviceFactory.Intern.Create(intern);
@@ -105,6 +110,11 @@ namespace Idis.Website
             var intern = _mapper.Map<InternModel>(model);
             intern.MentorId = int.Parse(ViewBag.id);
             intern.InternId = id;
+
+            if (intern.Avatar == "")
+            {
+                intern.Avatar = "_intern.jpg";
+            }
 
             try
             {
@@ -135,16 +145,16 @@ namespace Idis.Website
         [HttpPost]
         public bool InsertQuestion(QuestionViewModel model)
         {
-            var qa = _mapper.Map<QuestionModel>(model);
-            return _serviceFactory.Question.Create(qa);
+            var question = _mapper.Map<QuestionModel>(model);
+            return _serviceFactory.Question.Create(question);
         }
 
         [HttpPost]
         public bool EvaluateIntern(PointViewModel model)
         {
-            var mark = _mapper.Map<PointModel>(model);
-            mark.MarkerId = int.Parse(ViewBag.id);
-            return _serviceFactory.Point.EvaluateIntern(mark);
+            var point = _mapper.Map<PointModel>(model);
+            point.MarkerId = int.Parse(ViewBag.id);
+            return _serviceFactory.Point.EvaluateIntern(point);
         }
 
         [HttpPost]
@@ -186,7 +196,12 @@ namespace Idis.Website
         [HttpPost]
         public bool DeleteTraining(int id)
         {
-            return _serviceFactory.Training.Delete(id);
+            var result = _serviceFactory.Training.Delete(id);
+            if (result)
+            {
+                _serviceFactory.Department.RefreshSharedTrainings(id);
+            }
+            return result;
         }
         #endregion
 
@@ -223,7 +238,10 @@ namespace Idis.Website
                 return _serviceFactory.Department.Create(model);
             }
             else
-                return _serviceFactory.Department.Update(model);
+            {
+                string[] ignores = WebConstants.SharedTrainings;
+                return _serviceFactory.Department.Update(model, ignores);
+            }
         }
         [HttpPost]
         public bool UpdateOrganization(OrganizationModel model)

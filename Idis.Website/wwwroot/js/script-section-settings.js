@@ -1,4 +1,11 @@
 ﻿function UserDelete(id) {
+    var checked = document.getElementById("deleteAccountCheckbox").checked;
+    console.log(checked)
+    if (!checked) {
+        $.alert("Please checked the box to confirm that you want to delete your account!");
+        return;
+    }
+
     $.post("/UserDelete", {
         userId: id
     }).done(function (data) {

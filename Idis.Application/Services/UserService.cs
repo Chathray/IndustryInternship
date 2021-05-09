@@ -15,6 +15,15 @@ namespace Idis.Application
         public UserModel Authenticate(string loginEmail, string loginPassword)
         {
             var user = _userRepo.GetUser(loginEmail, loginPassword);
+
+            if (user is null) return null;
+
+            // check if dead, make it to alive
+            if (user.IsDeleted)
+            {
+                var success =_userRepo.UnDelete(user.UserId);
+                if (!success) return null;
+            }
             var model = ObjectMapper.Mapper.Map<UserModel>(user);
             return model;
         }
@@ -33,6 +42,11 @@ namespace Idis.Application
         public bool SetStatus(int userId, string status)
         {
             return _userRepo.SetField(userId, nameof(User.Status), status);
+        }
+
+        public bool SetAvatarVisibility(int userId, bool value)
+        {
+            return _userRepo.SetField(userId, nameof(User.AvatarVisibility), value);
         }
 
         public bool SetRole(int userId, string status)
@@ -54,6 +68,11 @@ namespace Idis.Application
         public bool UserDelete(int userId)
         {
             return _userRepo.UserDelete(userId);
+        }
+
+        public int GetProfileValue(int userId)
+        {
+            return _userRepo.GetProfileValue(userId);
         }
     }
 }

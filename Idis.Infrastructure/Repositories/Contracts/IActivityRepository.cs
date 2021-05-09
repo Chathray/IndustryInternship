@@ -2,6 +2,6 @@
 {
     public interface IActivityRepository : IRepositoryBase<Activity>
     {
-
+        bool CleanAll(int userId);
     }
 }

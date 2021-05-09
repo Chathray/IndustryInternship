@@ -13,13 +13,17 @@ namespace Idis.Infrastructure
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges);
 
         T GetOne(int id);
+        IList<T> GetAll(bool asNoTracking = true);
+
         ExpandoObject GetOneShaped(int key, string fields);
-        IList<T> GetAll();
         IList<ExpandoObject> GetAllShaped(string fields);
 
-        bool Update(T obj);
+        bool Update(T obj, string[] ignores = null);
+        bool UpdateIncluded(T entity, string[] accepted = null);
+
         bool Create(T obj);
         bool Delete(int id);
+
         int Count();
         int CountByIndex(int index);
 

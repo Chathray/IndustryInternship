@@ -31,12 +31,12 @@ namespace Idis.Website
                 currentPage = totalPages;
             }
 
-            int startPage, endPage;
+            int startPageStep, endPageStep;
             if (totalPages <= maxPages)
             {
                 // total pages less than max so show all pages
-                startPage = 1;
-                endPage = totalPages;
+                startPageStep = 1;
+                endPageStep = totalPages;
             }
             else
             {
@@ -46,35 +46,42 @@ namespace Idis.Website
                 if (currentPage <= maxPagesBeforeCurrentPage)
                 {
                     // current page near the start
-                    startPage = 1;
-                    endPage = maxPages;
+                    startPageStep = 1;
+                    endPageStep = maxPages;
                 }
                 else if (currentPage + maxPagesAfterCurrentPage >= totalPages)
                 {
                     // current page near the end
-                    startPage = totalPages - maxPages + 1;
-                    endPage = totalPages;
+                    startPageStep = totalPages - maxPages + 1;
+                    endPageStep = totalPages;
                 }
                 else
                 {
                     // current page somewhere in the middle
-                    startPage = currentPage - maxPagesBeforeCurrentPage;
-                    endPage = currentPage + maxPagesAfterCurrentPage;
+                    startPageStep = currentPage - maxPagesBeforeCurrentPage;
+                    endPageStep = currentPage + maxPagesAfterCurrentPage;
                 }
             }
+
+            int startPage, endPage;
+            startPage = 1;
+            endPage = (int)Math.Round((decimal)totalItems / pageSize);
+
 
             // calculate start and end item indexes
             var startIndex = (currentPage - 1) * pageSize;
             var endIndex = Math.Min(startIndex + pageSize - 1, totalItems - 1);
 
             // create an array of pages that can be looped over
-            var pages = Enumerable.Range(startPage, (endPage + 1) - startPage);
+            var pages = Enumerable.Range(startPageStep, (endPageStep + 1) - startPageStep);
 
             // update object instance with all pager properties required by the view
             TotalItems = totalItems;
             CurrentPage = currentPage;
             PageSize = pageSize;
             TotalPages = totalPages;
+            StartPageStep = startPageStep;
+            EndPageStep = endPageStep;
             StartPage = startPage;
             EndPage = endPage;
             StartIndex = startIndex;
@@ -88,6 +95,8 @@ namespace Idis.Website
         public int TotalPages { get; private set; }
         public int StartPage { get; private set; }
         public int EndPage { get; private set; }
+        public int StartPageStep { get; private set; }
+        public int EndPageStep { get; private set; }
         public int StartIndex { get; private set; }
         public int EndIndex { get; private set; }
         public IEnumerable<int> Pages { get; private set; }

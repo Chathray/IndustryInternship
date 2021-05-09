@@ -10,7 +10,7 @@ namespace Idis.Infrastructure.Helper
     /// <summary>
     /// Helpers
     /// </summary>
-    public static class StringExtensions
+    public static class InfrasExtensions
     {
         /// <summary>
         /// ConcatParameters

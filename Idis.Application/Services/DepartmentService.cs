@@ -14,5 +14,10 @@ namespace Idis.Application
         {
             return _departmentRepo.InsertSharedTraining(sharedId, depId);
         }
+
+        public bool RefreshSharedTrainings(int traId)
+        {
+            return _departmentRepo.RefreshSharedTrainings(traId);
+        }
     }
 }

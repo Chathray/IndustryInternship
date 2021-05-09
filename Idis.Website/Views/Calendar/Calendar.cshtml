@@ -188,7 +188,7 @@
                     <div class="media">
                         <label for="eventTitleLabel" class="sr-only">Title</label>
 
-                        <textarea asp-for="Title" id="eventTitleLabel" required class="form-control form-control-title" placeholder="Add title"></textarea>
+                        <textarea data-id="@Model.EventId" asp-for="Title" id="eventTitleLabel" required class="form-control form-control-title" placeholder="Add title"></textarea>
                     </div>
                     <!-- End Media -->
 
@@ -347,7 +347,7 @@
                 <!-- End Body -->
                 <!-- Footer -->
                 <div class="modal-footer">
-                    <button type="button" id="discardFormt" class="btn btn-white" data-dismiss="modal">Discard</button>
+                    <button type="button" onclick="DeleteEvent()" class="btn btn-white">Delete</button>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <!-- End Footer -->

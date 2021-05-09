@@ -9,5 +9,10 @@ namespace Idis.Application
         {
             _activityRepo = activityRepo;
         }
+
+        public bool CleanAll(int userId)
+        {
+            return _activityRepo.CleanAll(userId);
+        }
     }
 }

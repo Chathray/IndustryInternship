@@ -1,4 +1,17 @@
-﻿$(document).on('ready', function () {
+﻿function DeleteEvent() {
+    var title = $('#eventTitleLabel').val();
+    alert(title)
+    $.post("Calendar/DeleteEvent", {
+        evenTitle: title
+    }).done(function (data) {
+        Refresh(true, "Result: " + data);
+
+    }).fail(function () {
+        alert("Error");
+    });
+}
+
+$(document).on('ready', function () {
 
     var ava_url = localStorage.getItem("user_avatar");
     $('.user-ava').attr('src', ava_url);

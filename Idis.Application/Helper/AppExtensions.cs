@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Idis.Application
 {
-    public static class DataExtensions
+    public static class AppExtensions
     {
         public static string Dump(object anObject)
         {

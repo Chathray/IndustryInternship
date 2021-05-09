@@ -12,6 +12,11 @@ namespace Idis.Application
             _eventRepo = eventRepo;
         }
 
+        public bool DeleteByTitle(string title)
+        {
+            return _eventRepo.DeleteByTitle(title);
+        }
+
         public DataTable GetEventsIntern()
         {
             return _eventRepo.GetJointEvents();

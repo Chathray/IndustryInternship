@@ -15,6 +15,17 @@ namespace Idis.Infrastructure
             return _context.Events.SingleOrDefault(o => o.Title == title) is null;
         }
 
+        public bool DeleteByTitle(string title)
+        {
+            var even = _context.Events.SingleOrDefault(_ => _.Title == title);
+            if (even is null) return false;
+
+            _context.Events.Remove(even);
+
+            var effected = SaveChanges(nameof(DeleteByTitle));
+            return effected > 0;
+        }
+
         public DataTable GetJointEvents()
         {
             return _context.Database.GetDbConnection()

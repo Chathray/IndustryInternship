@@ -13,5 +13,7 @@ namespace Idis.Application
         bool UpdateBasic(UserModel user);
         bool UserDelete(int userId);
         bool SetStatus(int userId, string status);
+        bool SetAvatarVisibility(int userId, bool value);
+        int GetProfileValue(int userId);
     }
 }

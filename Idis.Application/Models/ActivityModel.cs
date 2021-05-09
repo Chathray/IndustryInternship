@@ -7,5 +7,6 @@
         public string ActivityDescription { get; set; }
         public string OtherDetails { get; set; }
         public int? CreatedBy { get; set; }
+        public string UpdatedDate { get; set; }
     }
 }

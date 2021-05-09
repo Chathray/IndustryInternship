@@ -25,7 +25,7 @@ namespace Idis.Application
             DataTable table = new();
             table.Load(_pointRepo.GetAllWithName());
 
-            return DataExtensions.ConvertDataTable<PointListModel>(table);
+            return AppExtensions.ConvertDataTable<PointListModel>(table);
         }
 
 

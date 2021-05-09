@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Idis.Application;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json.Linq;
@@ -67,6 +68,16 @@ namespace Idis.Website
             return RedirectToAction("Calendar");
         }
 
+        [HttpPost]
+        public IActionResult DeleteEvent(string evenTitle)
+        {
+            bool result = _eventService.DeleteByTitle(evenTitle);
+            if (result)
+            {
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            else return StatusCode(StatusCodes.Status501NotImplemented);
+        }
 
         [HttpGet]
         public string GetEvents()
