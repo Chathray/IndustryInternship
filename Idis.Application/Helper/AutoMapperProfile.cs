@@ -23,18 +23,33 @@ namespace Idis.Application
         {
             public AspnetRunDtoMapper()
             {
-                CreateMap<UserModel, Infrastructure.User>().ReverseMap();
-                CreateMap<EventModel, Infrastructure.Event>().ReverseMap();
-                CreateMap<QuestionModel, Infrastructure.Question>().ReverseMap();
-                CreateMap<InternModel, Infrastructure.Intern>().ReverseMap();
-                CreateMap<DepartmentModel, Infrastructure.Department>().ReverseMap();
-                CreateMap<OrganizationModel, Infrastructure.Organization>().ReverseMap();
-                CreateMap<TrainingModel, Infrastructure.Training>().ReverseMap();
-                CreateMap<PointModel, Infrastructure.Point>().ReverseMap();
-                CreateMap<EventTypeModel, Infrastructure.EventType>().ReverseMap();
-                CreateMap<ActivityModel, Infrastructure.Activity>().ReverseMap();
+                CreateMap<Infrastructure.User, UserModel>().ReverseMap();
+                CreateMap<Infrastructure.Event, EventModel>().ReverseMap();
+                CreateMap<Infrastructure.Question, QuestionModel>().ReverseMap();
+                CreateMap<Infrastructure.Intern, InternModel>().ReverseMap();
+                CreateMap<Infrastructure.Department, DepartmentModel>().ReverseMap();
+                CreateMap<Infrastructure.Organization, OrganizationModel>().ReverseMap();
+                CreateMap<Infrastructure.Training, TrainingModel>().ReverseMap();
+                CreateMap<Infrastructure.Point, PointModel>().ReverseMap();
+                CreateMap<Infrastructure.EventType, EventTypeModel>().ReverseMap();
+                CreateMap<Infrastructure.Activity, ActivityModel>().ReverseMap();
 
-                CreateMap<PointListModel, Infrastructure.Point>().ReverseMap();
+                CreateMap<Infrastructure.Point, PointListModel>().ReverseMap();
+
+                CreateMap<Infrastructure.User, InternListModel>();
+                CreateMap<Infrastructure.Organization, InternListModel>();
+                CreateMap<Infrastructure.Department, InternListModel>();
+                CreateMap<Infrastructure.Training, InternListModel>();
+                CreateMap<Infrastructure.Intern, InternListModel>()
+                    .IncludeMembers(s => s.Mentor,
+                                    s => s.Training,
+                                    s => s.Organization,
+                                    s => s.Department)
+                    .ForMember(src => src.FullName, opt
+                        => opt.MapFrom(dest => dest.FirstName + " " + dest.LastName))
+                    .ForMember(src => src.Mentor, opt
+                        => opt.MapFrom(dest => dest.Mentor.FirstName + " " + dest.Mentor.LastName))
+                    .ReverseMap();
             }
         }
     }

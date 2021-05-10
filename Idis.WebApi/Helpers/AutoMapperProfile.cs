@@ -6,10 +6,11 @@ namespace Idis.WebApi
     {
         public AutoMapperProfile()
         {
-            CreateMap<RegisterRequest, Application.UserModel>();
-            CreateMap<CreateEventRequest, Application.EventModel>();
-            CreateMap<CreateInternRequest, Application.InternModel>();
-            CreateMap<CreateQuestionRequest, Application.QuestionModel>();
+            CreateMap<Application.UserModel, RegisterRequest>().ReverseMap();
+            CreateMap<Application.EventModel, CreateEventRequest>().ReverseMap();
+            CreateMap<Application.InternModel, CreateInternRequest>().ReverseMap();
+            CreateMap<Application.QuestionModel, CreateQuestionRequest>().ReverseMap();
+            CreateMap<Application.PointModel, EvaluateRequest>().ReverseMap();
         }
     }
 }

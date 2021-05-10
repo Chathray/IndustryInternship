@@ -33,8 +33,6 @@ namespace Idis.Website
 
         #endregion End Intern Property
 
-        public string Uptime { get; internal set; }
-
 
         public string CheckPageActive(int page)
         {

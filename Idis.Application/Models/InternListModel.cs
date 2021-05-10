@@ -4,6 +4,7 @@ namespace Idis.Application
 {
     public class InternListModel
     {
+        public int InternId { get; set; }
         public string Avatar { get; set; }
         public string Email { get; set; }
         public string FullName { get; set; }

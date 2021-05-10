@@ -21,6 +21,7 @@ namespace Idis.WebApi
                 nameof(CreateEventRequest) => ModelSample.EventRequest.ToOpenApiObject(),
                 nameof(AuthenticationRequest) => ModelSample.AuthenticationRequest.ToOpenApiObject(),
                 nameof(CreateInternRequest) => ModelSample.CreateInternRequest.ToOpenApiObject(),
+                nameof(EvaluateRequest) => ModelSample.EvaluateRequest.ToOpenApiObject(),
                 nameof(CreateQuestionRequest) => ModelSample.CreateQuestionRequest.ToOpenApiObject(),
                 nameof(Application.TrainingModel) => ModelSample.TrainingModel.ToOpenApiObject(),
                 _ => null,

@@ -38,11 +38,12 @@
 
         public static CreateInternRequest CreateInternRequest => new()
         {
+            InternId = null,
             FirstName = "Người",
             LastName = "Máy",
             Email = "anna@chatbot",
             Phone = "094315544",
-            DateOfBirth = "20/07/1998",
+            DateOfBirth = "1998-07-20",
             Gender = "Unspecified",
             Address1 = "Thôn 11, Xã Eakhal, Eahleo, ĐakLak",
             Address2 = "94, Cần Vương, Quy Nhơn, Bình Định",
@@ -51,7 +52,7 @@
             MentorId = 1,
             TrainingId = 1,
             Type = "Full time",
-            Duration = "22/02/2021 - 16/05/2021",
+            Duration = "2021-05-16 - 2021-02-02",
             Avatar = null,
             UpdatedBy = 1
         };
@@ -72,6 +73,15 @@
             CreatedBy = 2,
             TraData = "{'ops':[{'insert':'s\n'}]}",
             TraName = "ASP.NET Core 5.0 MVC"
+        };
+
+
+        public static EvaluateRequest EvaluateRequest => new()
+        {
+            InternId = 1,
+            Attitude = 5,
+            SoftSkill = 9,
+            TechnicalSkill = 9
         };
     }
 }

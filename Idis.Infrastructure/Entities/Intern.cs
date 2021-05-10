@@ -15,13 +15,13 @@ namespace Idis.Infrastructure
         public string DateOfBirth { get; set; }
         public string Gender { get; set; }
         public string Phone { get; set; }
-        public int MentorId { get; set; }
+        public int? MentorId { get; set; }
         public int? UpdatedBy { get; set; }
         public string Duration { get; set; }
         public string Type { get; set; }
-        public int DepartmentId { get; set; }
-        public int OrganizationId { get; set; }
-        public int TrainingId { get; set; }
+        public int? DepartmentId { get; set; }
+        public int? OrganizationId { get; set; }
+        public int? TrainingId { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
 

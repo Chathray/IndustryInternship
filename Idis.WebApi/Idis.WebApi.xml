@@ -68,8 +68,22 @@
             Delete a Intern
             </summary>
             <remarks>Delete a Intern given Intern Id</remarks>
-            <param name="internId" example="311"></param>
+            <param name="internId" example="1"></param>
             <returns>True if delete success, else False</returns>
+        </member>
+        <member name="M:Idis.WebApi.InternController.GetInterns(System.Int32,System.Int32)">
+            <summary>
+            Get intern list with pagination
+            </summary>
+            <param name="page" example="1">Number for skip page</param>
+            <param name="size" example="6">Number for page size</param>
+        </member>
+        <member name="M:Idis.WebApi.InternController.GetInternsWeekTyped(System.Int32,System.Int32)">
+            <summary>
+            Get intern list with pagination and week typed
+            </summary>
+            <param name="page" example="1">Number for skip page</param>
+            <param name="size" example="6">Number for page size</param>
         </member>
         <member name="M:Idis.WebApi.InternController.GetInternInfo(System.Int32)">
             <summary>
@@ -108,7 +122,7 @@
             <remarks>Awesomeness!</remarks>
             <param name="internId" example="310">The intern id</param>
             <response code="200">List has been retrieved</response>
-            <response code="400">Bad request, please try later</response>
+            <response code="404">Not found, please try other</response>
         </member>
         <member name="M:Idis.WebApi.QuestionController.GetQuestion(System.Int32)">
             <summary>

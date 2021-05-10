@@ -26,14 +26,13 @@ namespace Idis.Application
         public IList<InternListModel> GetInternByPage(int page, int size, string sort)
         {
             var list = _internRepo.GetInternByPage(page, size);
-
             return ObjectMapper.Mapper.Map<IList<InternListModel>>(list);
         }
 
         public IList<InternModel> GetInternByPage(int page, int size)
         {
-            var obj = _internRepo.GetInternByPage(page, size);
-            return ObjectMapper.Mapper.Map<IList<InternModel>>(obj);
+            var list = _internRepo.GetInternByPage(page, size);
+            return ObjectMapper.Mapper.Map<IList<InternModel>>(list);
         }
 
         public dynamic GetInternInfo(int id)

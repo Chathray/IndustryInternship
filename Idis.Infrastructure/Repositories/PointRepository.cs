@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 using System.Data;
 
@@ -12,13 +13,21 @@ namespace Idis.Infrastructure
 
         public bool EvaluateIntern(Point point)
         {
-            return _context.Database.GetDbConnection()
-                          .Execute($@"CALL EvaluateIntern(
+            try
+            {
+                return _context.Database.GetDbConnection()
+                              .Execute($@"CALL EvaluateIntern(
                            {point.InternId}
                          , {point.MarkerId}
                          , {point.TechnicalSkill}
                          , {point.SoftSkill}
                          , {point.Attitude})") > 0;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Func: {nameof(EvaluateIntern)}");
+                return false;
+            }
         }
 
         public Point GetPointDetail(int id)

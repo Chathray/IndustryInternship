@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Idis.Application;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -58,7 +59,7 @@ namespace Idis.WebApi
             var intern = _mapper.Map<InternModel>(request);
             intern.MentorId = _origin.UserId;
 
-            if (intern.Avatar == "")
+            if (intern.Avatar is null)
                 intern.Avatar = "_intern.jpg";
 
             try
@@ -90,13 +91,47 @@ namespace Idis.WebApi
         /// Delete a Intern
         /// </summary>
         /// <remarks>Delete a Intern given Intern Id</remarks>
-        /// <param name="internId" example="311"></param>
+        /// <param name="internId" example="1"></param>
         /// <returns>True if delete success, else False</returns>
         [HttpDelete]
         public IActionResult DeleteIntern(int internId)
         {
             var deleted = _serviceFactory.Intern.Delete(internId);
             return new JsonResult(new { internId, deleted });
+        }
+
+
+        /// <summary>
+        /// Get intern list with pagination
+        /// </summary>
+        /// <param name="page" example="1">Number for skip page</param>
+        /// <param name="size" example="6">Number for page size</param>
+        [AllowAnonymous]
+        [HttpGet("Interns")]
+        public IActionResult GetInterns(int size, int page)
+        {
+            var intern = _serviceFactory.Intern.GetInternByPage(page, size);
+            if (intern != null)
+                return Ok(intern);
+            else
+                return NotFound();
+        }
+
+
+        /// <summary>
+        /// Get intern list with pagination and week typed
+        /// </summary>
+        /// <param name="page" example="1">Number for skip page</param>
+        /// <param name="size" example="6">Number for page size</param>
+        [AllowAnonymous]
+        [HttpGet("InternsWeekTyped")]
+        public IActionResult GetInternsWeekTyped(int size, int page)
+        {
+            var intern = _serviceFactory.Intern.GetInternByPage(page, size, "WeekTyped");
+            if (intern != null)
+                return Ok(intern);
+            else
+                return NotFound();
         }
 
 
@@ -162,12 +197,16 @@ namespace Idis.WebApi
         {
             var point = _mapper.Map<PointModel>(model);
             point.MarkerId = _origin.UserId;
+
             var success = _serviceFactory.Point.EvaluateIntern(point);
 
             if (success)
                 return Ok();
             else
+            {
+                HttpContext.Response.Headers.Append("err-hint", "Maybe intern not exist");
                 return StatusCode(StatusCodes.Status501NotImplemented);
+            }
         }
 
 
@@ -177,15 +216,19 @@ namespace Idis.WebApi
         /// <remarks>Awesomeness!</remarks>
         /// <param name="internId" example="310">The intern id</param>
         /// <response code="200">List has been retrieved</response>
-        /// <response code="400">Bad request, please try later</response>
+        /// <response code="404">Not found, please try other</response>
         [ProducesResponseType(typeof(IList<TrainingModel>), 200)]
         [ProducesResponseType(typeof(IDictionary<string, string>), 400)]
-        [Produces("application/json")]
         [HttpGet("JointTrainings")]
-        public IList<TrainingModel> GetJointTrainings(int internId)
+        public IActionResult GetJointTrainings(int internId)
         {
+            var check = _serviceFactory.Intern.GetOne(internId);
+            if (check is null)
+            {
+                return NotFound();
+            }
             var list = _serviceFactory.Intern.GetJointTrainings(internId);
-            return list;
+            return Ok(list);
         }
     }
 }

@@ -122,6 +122,7 @@ namespace Idis.Infrastructure
                 .Include(b => b.Organization)
                 .Include(b => b.Department)
                 .Include(b => b.Editor)
+                .Include(b => b.Mentor)
                 .Include(b => b.Training)
                 .OrderBy(i => i.InternId)
                 .ThenBy(i => i.FirstName)
