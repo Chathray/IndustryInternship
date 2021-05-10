@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Idis.Website
 {
+    [Authorize]
     [Route("/[action]")]
     public class UserController : Controller
     {
@@ -29,6 +30,7 @@ namespace Idis.Website
             _hubContext = hubContext;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Authentication()
         {
@@ -37,7 +39,6 @@ namespace Idis.Website
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult Profile()
         {
             SetSessionInfo();
@@ -49,7 +50,6 @@ namespace Idis.Website
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult Settings()
         {
             SetSessionInfo();
@@ -69,6 +69,7 @@ namespace Idis.Website
             ViewBag.role = User.Claims.ElementAt(3).Value;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(UserViewModel model)
         {
@@ -89,6 +90,7 @@ namespace Idis.Website
             // Pass to index ViewResult
             TempData["avatar"] = user.Avatar;
             TempData["status"] = user.Status;
+            TempData["name"] = user.FirstName + " " + user.LastName;
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -98,7 +100,7 @@ namespace Idis.Website
                 new AuthenticationProperties
                 {
                     IsPersistent = model.Remember,
-                    ExpiresUtc = DateTime.UtcNow.AddMinutes(15)
+                    ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
                 });
             goto Done;
 
@@ -109,6 +111,7 @@ namespace Idis.Website
             return View("Authentication", model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Register(UserViewModel model)
         {
@@ -118,7 +121,7 @@ namespace Idis.Website
                 bool result = _serviceFactory.User.InsertUser(user);
                 if (result) goto Done;
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
                 Log.Error(ex.Message);
             }
@@ -141,6 +144,12 @@ namespace Idis.Website
         [HttpPost("/User/UpdateBasic")]
         public IActionResult UserUpdateBasic(SettingsViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["notification"] = "Model state is invalid";
+                return View(model);
+            }
+
             var user = _mapper.Map<UserModel>(model);
             var userId = User.Claims.ElementAt(0).Value;
             user.UserId = int.Parse(userId);
@@ -154,6 +163,7 @@ namespace Idis.Website
         [HttpPost("/User/UpdatePassword")]
         public IActionResult UserUpdatePassword(PasswordUpdateModel model)
         {
+            if (!ModelState.IsValid) goto Failed;
             if (model.NewPassword != model.ConfirmNewPassword) goto Failed;
 
             var email = User.Claims.ElementAt(1).Value;
@@ -187,7 +197,7 @@ namespace Idis.Website
         [HttpPost]
         public async Task<bool> UserDelete(int userId)
         {
-            var success = _serviceFactory.User.UserDelete(userId);
+            var success = _serviceFactory.User.DeleteUser(userId);
             if (success)
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 

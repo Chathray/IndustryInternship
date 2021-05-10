@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Idis.Application;
 
 namespace Idis.WebApi
 {
@@ -7,7 +6,10 @@ namespace Idis.WebApi
     {
         public AutoMapperProfile()
         {
-            CreateMap<RegisterModel, UserModel>();
+            CreateMap<RegisterRequest, Application.UserModel>();
+            CreateMap<CreateEventRequest, Application.EventModel>();
+            CreateMap<CreateInternRequest, Application.InternModel>();
+            CreateMap<CreateQuestionRequest, Application.QuestionModel>();
         }
     }
 }

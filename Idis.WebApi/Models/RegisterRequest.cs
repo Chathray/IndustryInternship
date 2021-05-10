@@ -1,11 +1,19 @@
-﻿namespace Idis.WebApi
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Idis.WebApi
 {
-    public class RegisterModel
+    public class RegisterRequest
     {
+        [Required]
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
+
+        [Required]
         public string Email { get; set; }
+
+        [Required]
+        [MinLength(6)]
         public string Password { get; set; }
-        public string CormfirmPassword { get; set; }
     }
 }

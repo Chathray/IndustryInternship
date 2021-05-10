@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Idis.Infrastructure
 {
-    public class InfrasException : Exception
+    public class InfrasException : DbUpdateException
     {
         internal InfrasException(string businessMessage)
                : base(businessMessage)

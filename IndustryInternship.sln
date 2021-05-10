@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idis.Website", "Idis.Websit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{16D2806F-EF7F-4044-B85E-AC76DD00E709}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idis.Infrastructure.Test", "Idis.Infrastructure.Test\Idis.Infrastructure.Test.csproj", "{CD6A42A4-9F90-408F-957B-B22CC4E2DE8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idis.Infrastructure.Test", "Idis.Infrastructure.Test\Idis.Infrastructure.Test.csproj", "{CD6A42A4-9F90-408F-957B-B22CC4E2DE8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -87,7 +87,7 @@ namespace Idis.Website
             var intern = _mapper.Map<InternModel>(model);
             intern.MentorId = int.Parse(ViewBag.id);
 
-            if (intern.Avatar == "")
+            if (intern.Avatar is null)
             {
                 intern.Avatar = "_intern.jpg";
             }
@@ -96,7 +96,7 @@ namespace Idis.Website
             {
                 _serviceFactory.Intern.Create(intern);
             }
-            catch (WebException)
+            catch (Exception)
             {
                 return BadRequest();
             }
@@ -120,7 +120,7 @@ namespace Idis.Website
             {
                 _serviceFactory.Intern.Update(intern);
             }
-            catch (WebException)
+            catch (Exception)
             {
                 Response.StatusCode = -1;
             }

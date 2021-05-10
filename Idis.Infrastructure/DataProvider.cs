@@ -19,7 +19,7 @@ namespace Idis.Infrastructure
                 adapter.Fill(data);
                 return data;
             }
-            catch (InfrasException)
+            catch (Exception)
             {
                 conn.Close();
                 return null;
@@ -38,7 +38,7 @@ namespace Idis.Infrastructure
                 adapter.Fill(data);
                 return data;
             }
-            catch (InfrasException)
+            catch (Exception)
             {
                 conn.Close();
                 return null;
@@ -59,7 +59,7 @@ namespace Idis.Infrastructure
                 conn.Close();
                 return ok != -1;
             }
-            catch (InfrasException)
+            catch (Exception)
             {
                 conn.Close();
                 return false;
@@ -76,7 +76,7 @@ namespace Idis.Infrastructure
                 MySqlCommand command = new(query, conn as MySqlConnection);
                 return command.ExecuteScalar();
             }
-            catch (InfrasException)
+            catch (Exception)
             {
                 conn.Close();
                 return null;

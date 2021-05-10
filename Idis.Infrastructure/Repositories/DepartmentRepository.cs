@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System;
 using System.Linq;
 
 namespace Idis.Infrastructure
@@ -46,7 +47,7 @@ namespace Idis.Infrastructure
                     dep.SharedTrainings = dep.SharedTrainings?.Replace($"{traId}", "");
                     dep.SharedTrainings = dep.SharedTrainings?.Replace($",,", ",");
                 }
-                catch (InfrasException ex)
+                catch (Exception ex)
                 {
                     Log.Error($"Func: {nameof(RefreshSharedTrainings)}, {ex.Message}");
                 }

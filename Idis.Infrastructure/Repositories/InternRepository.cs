@@ -33,7 +33,7 @@ namespace Idis.Infrastructure
             //    }).First();
 
             var result = _context.Database.GetDbConnection()
-                .ExecuteScalar($"CALL GetInternInfo('{id}')").ToString();
+                .ExecuteScalar($"CALL GetInternInfo('{id}')");
 
             return result;
         }
@@ -68,8 +68,7 @@ namespace Idis.Infrastructure
             //};
 
             var result = _context.Database.GetDbConnection()
-                .ExecuteScalar($"CALL GetInternDetail('{internId}')")
-                .ToString();
+                .ExecuteScalar($"CALL GetInternDetail('{internId}')");
 
             return result;
         }
@@ -146,7 +145,7 @@ namespace Idis.Infrastructure
 
                 foreach (var training_id in list_id)
                 {
-                    if (training_id == "0") continue;
+                    if (training_id == "" || training_id == "0") continue;
                     var step = _context.Trainings.Find(int.Parse(training_id));
                     result.Add(step);
                 }
@@ -156,16 +155,16 @@ namespace Idis.Infrastructure
 
         public dynamic GetWhitelist()
         {
-            //var list = _context.Interns
-            //    .Select(intern => new
-            //    {
-            //        iid = intern.InternId,
-            //        src = $"/img/avatar/{intern.Avatar}",
-            //        value = $"{intern.FirstName} {intern.LastName}"
-            //    }).ToList();
+            //var list = _context.Database.GetDbConnection()
+            //     .ExecuteScalar("CALL GetWhitelist()").ToString();
 
-            var list = _context.Database.GetDbConnection()
-                 .ExecuteScalar("CALL GetWhitelist()").ToString();
+            var list = _context.Interns
+                .Select(intern => new
+                {
+                    iid = intern.InternId,
+                    src = $"/img/avatar/{intern.Avatar}",
+                    value = $"{intern.FirstName} {intern.LastName}"
+                }).ToList();
 
             return list;
         }

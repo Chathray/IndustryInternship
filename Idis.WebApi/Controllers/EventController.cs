@@ -1,30 +1,36 @@
 ﻿using AutoMapper;
 using Idis.Application;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Linq;
+using System.Xml;
 
 namespace Idis.WebApi
 {
     [Authorize]
     [ApiController]
     [ApiVersion("2")]
-    [Route("api/v{version:apiVersion}/Calendar")]
-    public class CalendarController : ControllerBase
+    [Route("api/v{version:apiVersion}/[controller]")]
+    public class EventController : ControllerBase
     {
         private readonly IMapper _mapper;
 
         private readonly IInternService _internService;
         private readonly IEventService _eventService;
         private readonly IEventTypeService _eventTypeService;
+        private readonly IOriginService _origin;
 
 
-        public CalendarController(IMapper mapper, IInternService internService, IEventService eventService, IEventTypeService eventTypeService)
+        public EventController(IMapper mapper, IInternService internService, IEventService eventService, IEventTypeService eventTypeService, IOriginService origin)
         {
             _mapper = mapper;
-
+            _origin = origin;
             _internService = internService;
             _eventService = eventService;
             _eventTypeService = eventTypeService;
@@ -32,16 +38,15 @@ namespace Idis.WebApi
 
 
         /// <summary>
-        /// Create a new event
+        /// Create or update a event
         /// </summary>
         /// <param name="model">Event info model</param>
-        /// <param name="creatorId">User Id, who create</param>
         /// <returns>Status code</returns>
-        [HttpPost("CreateEvent")]
-        public IActionResult CreateEvent(EventModel model, int creatorId)
+        [HttpPut]
+        public IActionResult CreateEvent(CreateEventRequest model)
         {
-            var even = _mapper.Map<Application.EventModel>(model);
-            even.CreatedBy = creatorId;
+            var even = _mapper.Map<EventModel>(model);
+            even.CreatedBy = _origin.UserId;
 
             var ok = _eventService.InsertEvent(even);
 
@@ -52,15 +57,48 @@ namespace Idis.WebApi
 
 
         /// <summary>
+        /// Delete a event
+        /// </summary>
+        /// <param name="evenId" example="1">Id of an event</param>
+        /// <returns>Status code: 200, 401</returns>
+        [HttpDelete]
+        public IActionResult DeleteEvent(int evenId)
+        {
+            bool result = _eventService.Delete(evenId);
+            if (result)
+            {
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            else return NotFound();
+        }
+
+
+        /// <summary>
+        /// Get events
+        /// </summary>
+        /// <remarks>Get all event list</remarks>
+        /// <returns>List of event</returns>
+        [HttpGet("Events")]
+        public IActionResult GetEvents()
+        {
+            var events = _eventService.GetJson();
+            if (events is null)
+                return NoContent();
+            else
+                return Content(events.JsonPrettify());
+        }
+
+
+        /// <summary>
         /// Get whitelist
         /// </summary>
         /// <remarks>Get list of intern by format [src,value]</remarks>
         /// <returns>Dynamic object</returns>
-        [HttpGet("GetWhitelist")]
-        public dynamic GetWhitelist()
+        [HttpGet("Whitelist")]
+        public IActionResult GetWhitelist()
         {
             var guests = _internService.GetWhitelist();
-            return guests;
+            return Ok(guests);
         }
 
 
@@ -70,7 +108,7 @@ namespace Idis.WebApi
         /// <remarks>Get all event types list</remarks>
         /// <returns>List of event type</returns>
         [Produces("application/json")]
-        [HttpGet("GetEventTypes")]
+        [HttpGet("EventTypes")]
         public IList<EventTypeModel> GetEventTypes()
         {
             var eventypes = _eventTypeService.GetAll();
@@ -79,26 +117,12 @@ namespace Idis.WebApi
 
 
         /// <summary>
-        /// Get events
-        /// </summary>
-        /// <remarks>Get all event list</remarks>
-        /// <returns>List of event</returns>
-        /// <response code="201">Empty data</response>
-        [ProducesResponseType(typeof(string), 201)]
-        [HttpGet("GetEvents")]
-        public string GetEvents()
-        {
-            return _eventService.GetJson();
-        }
-
-
-        /// <summary>
-        /// Get joint events
+        /// Get joint events of a intern
         /// </summary>
         /// <remarks>Get joint events given intern Id</remarks>
         /// <param name="internId">Intern Id</param>
         /// <returns>List of joint event of a intern</returns>
-        [HttpGet("GetJointEvents")]
+        [HttpGet("JointEvents")]
         public string GetJointEvents(int internId)
         {
             var data = _eventService.GetEventsIntern();

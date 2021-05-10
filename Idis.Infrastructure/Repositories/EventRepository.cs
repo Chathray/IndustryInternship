@@ -43,6 +43,7 @@ namespace Idis.Infrastructure
         public bool UpdateByTitle(Event model)
         {
             var parameter = new DynamicParameters();
+            parameter.Add("Image", model.Image);
             parameter.Add("Title", model.Title);
             parameter.Add("Type", model.Type);
             parameter.Add("ClassName", model.ClassName);
@@ -56,7 +57,8 @@ namespace Idis.Infrastructure
 
             return _context.Database.GetDbConnection()
                 .Execute($@"CALL UpdateEventByTitle(
-                          @Title
+                          @Image
+                        , @Title
                         , @Type
                         , @ClassName
                         , @Start

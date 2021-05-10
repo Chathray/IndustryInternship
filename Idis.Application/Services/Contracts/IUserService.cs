@@ -11,7 +11,7 @@ namespace Idis.Application
         DataTable GetProfile(int id);
         bool UpdatePassword(int userId, string newPassword);
         bool UpdateBasic(UserModel user);
-        bool UserDelete(int userId);
+        bool DeleteUser(int userId);
         bool SetStatus(int userId, string status);
         bool SetAvatarVisibility(int userId, bool value);
         int GetProfileValue(int userId);

@@ -16,6 +16,7 @@ namespace Idis.Website
         public string Whitelist { get; set; }
 
         public string Creator { get; set; }
+        public string Image { get; set; }
 
         public int EventId { get; set; }
         public string Title { get; set; }

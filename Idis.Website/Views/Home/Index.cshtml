@@ -11,11 +11,13 @@
     {
         string AVA = TempData["avatar"].ToString();
         string STS = TempData["status"].ToString();
+        string NAM = TempData["name"].ToString();
 
         @Html.Raw($@"
         <script>
             localStorage.setItem('user_avatar','{AVA}');
             localStorage.setItem('user_status','{STS}');
+            localStorage.setItem('user_name','{NAM}');
         </script>");
     }
 }

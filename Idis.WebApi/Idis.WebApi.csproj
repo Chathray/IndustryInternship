@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
+		<StartupObject>Idis.WebApi.Program</StartupObject>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -28,6 +29,12 @@
 	
 	<ItemGroup>
 		<ProjectReference Include="..\Idis.Application\Idis.Application.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <None Update="Idis.WebApi.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

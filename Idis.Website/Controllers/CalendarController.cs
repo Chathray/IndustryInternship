@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json.Linq;
+using Serilog;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -44,10 +46,12 @@ namespace Idis.Website
         {
             ViewData["page-2"] = "active";
 
-            var guests = _internService.GetWhitelist();
-            var eventype = _eventTypeService.GetAll();
+            object guests = _internService.GetWhitelist();
+            string whitelist = AppExtensions.Dump(guests);
 
-            var model = new CalendarViewModel(eventype, guests)
+            IList<EventTypeModel> eventype = _eventTypeService.GetAll();
+
+            var model = new CalendarViewModel(eventype, whitelist)
             {
                 Creator = ViewBag.fullname
             };
@@ -60,6 +64,11 @@ namespace Idis.Website
         {
             var even = _mapper.Map<EventModel>(model);
             even.CreatedBy = int.Parse(ViewBag.id);
+
+            if (even.Image is null)
+                even.Image = "/img/_event.svg";
+
+            //Log.Information(AppExtensions.Dump(even));
 
             var ok = _eventService.InsertEvent(even);
 

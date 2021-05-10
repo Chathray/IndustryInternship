@@ -34,18 +34,19 @@ namespace Idis.WebApi
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.ConfigureSwaggerGen();
+
             // Adds service API versioning to the specified services collection
             services.ConfigureApiVersioning();
 
             // Enable Cross-Origin Requests (CORS) in ASP.NET Core
             services.AddCors();
-
+            
             // Configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
             // Configure JWT for authentication
-            services.ConfigureJwtAuthentication(appSettingsSection);
+            // services.ConfigureJwtAuthentication(appSettingsSection);
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace Idis.WebApi
                 c.DefaultModelExpandDepth(2);
                 c.DefaultModelRendering(ModelRendering.Example);
                 c.DefaultModelsExpandDepth(-1);
-                c.DisplayOperationId();
+                //c.DisplayOperationId();
                 c.DisplayRequestDuration();
                 c.DocExpansion(DocExpansion.List);
                 c.EnableDeepLinking();
@@ -83,12 +84,15 @@ namespace Idis.WebApi
                 c.EnableValidator();
                 c.SupportedSubmitMethods(
                       SubmitMethod.Get
+                    , SubmitMethod.Head
+                    , SubmitMethod.Options
                     , SubmitMethod.Post
                     , SubmitMethod.Put
+                    , SubmitMethod.Patch
                     , SubmitMethod.Delete);
                 c.UseRequestInterceptor("(request) => { return request; }");
                 c.UseResponseInterceptor("(response) => { return response; }");
-
+                
                 c.SwaggerEndpoint("/idis/v2/docs.json", "Idis OpenAPI Version 2");
                 c.SwaggerEndpoint("/idis/v1/docs.json", "Idis OpenAPI Version 1");
 
@@ -127,8 +131,8 @@ namespace Idis.WebApi
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+            app.UseMiddleware<AuthenticationMiddleware>();            
 
             app.UseEndpoints(endpoints =>
             {

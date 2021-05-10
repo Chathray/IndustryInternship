@@ -11,7 +11,8 @@ namespace Idis.WebApi
         public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+            //.MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
             .WriteTo.Console()
             .CreateBootstrapLogger();
@@ -24,7 +25,7 @@ namespace Idis.WebApi
                 Log.Information("Stopped cleanly!");
                 return 200;
             }
-            catch (ApiException ex)
+            catch (Exception ex)
             {
                 Log.Fatal(ex, "An unhandled exception occured during bootstrapping");
                 return -2;

@@ -1,6 +1,5 @@
 ﻿function DeleteEvent() {
     var title = $('#eventTitleLabel').val();
-    alert(title)
     $.post("Calendar/DeleteEvent", {
         evenTitle: title
     }).done(function (data) {
@@ -147,6 +146,8 @@ $(document).on('ready', function () {
 
             // Get Avatars HTML
             function getAvatars(members) {
+                if (members == null) return;
+
                 const wrapper = $('<ul>').addClass('list-unstyled mb-0')
 
                 members.forEach(function (member) {
@@ -199,7 +200,7 @@ $(document).on('ready', function () {
                           <img class="avatar-img" src="${localStorage.getItem("user_avatar")}" alt="Image Description">
                         </div>
                         <div class="media-body">
-                          <span class="d-block text-dark">Chath Guy</span>
+                          <span class="d-block text-dark">${localStorage.getItem("user_name")}</span>
                         </div>
                       </div>
 

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Idis.Infrastructure;
 using System;
 
 namespace Idis.Application
@@ -24,18 +23,18 @@ namespace Idis.Application
         {
             public AspnetRunDtoMapper()
             {
-                CreateMap<UserModel, User>().ReverseMap();
-                CreateMap<EventModel, Event>().ReverseMap();
-                CreateMap<QuestionModel, Question>().ReverseMap();
-                CreateMap<InternModel, Intern>().ReverseMap();
-                CreateMap<DepartmentModel, Department>().ReverseMap();
-                CreateMap<OrganizationModel, Organization>().ReverseMap();
-                CreateMap<TrainingModel, Training>().ReverseMap();
-                CreateMap<PointModel, Point>().ReverseMap();
-                CreateMap<EventTypeModel, EventType>().ReverseMap();
-                CreateMap<ActivityModel, Activity>().ReverseMap();
+                CreateMap<UserModel, Infrastructure.User>().ReverseMap();
+                CreateMap<EventModel, Infrastructure.Event>().ReverseMap();
+                CreateMap<QuestionModel, Infrastructure.Question>().ReverseMap();
+                CreateMap<InternModel, Infrastructure.Intern>().ReverseMap();
+                CreateMap<DepartmentModel, Infrastructure.Department>().ReverseMap();
+                CreateMap<OrganizationModel, Infrastructure.Organization>().ReverseMap();
+                CreateMap<TrainingModel, Infrastructure.Training>().ReverseMap();
+                CreateMap<PointModel, Infrastructure.Point>().ReverseMap();
+                CreateMap<EventTypeModel, Infrastructure.EventType>().ReverseMap();
+                CreateMap<ActivityModel, Infrastructure.Activity>().ReverseMap();
 
-                CreateMap<PointListModel, Point>().ReverseMap();
+                CreateMap<PointListModel, Infrastructure.Point>().ReverseMap();
             }
         }
     }

@@ -54,11 +54,18 @@ namespace Idis.Infrastructure
 
         public IList<T> GetAll(bool asNoTracking = true)
         {
-            if (asNoTracking)
-                return FindAll(false).AsNoTracking().ToList();
-            else
-                return FindAll(false).AsTracking().ToList();
-
+            try
+            {
+                if (asNoTracking)
+                    return FindAll(false).AsNoTracking().ToList();
+                else
+                    return FindAll(false).AsTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Func: {nameof(GetAll)}, " + ex.Message);
+                return null;
+            }
         }
 
         public IList<ExpandoObject> GetAllShaped(string fields)
@@ -69,24 +76,16 @@ namespace Idis.Infrastructure
 
         public bool Update(T entity, string[] ignores = null)
         {
-            try
-            {
-                _context.Set<T>().Update(entity);
+            _context.Set<T>().Update(entity);
 
-                if (ignores != null)
-                {
-                    foreach (var property in ignores)
-                    {
-                        _context.Entry(entity).Property(property).IsModified = false;
-                    }
-                }
-                return SaveChanges(nameof(Update)) > 0;
-            }
-            catch (InfrasException ex)
+            if (ignores != null)
             {
-                Log.Error($"Func: {nameof(Update)}, {ex.Message}");
-                return false;
+                foreach (var property in ignores)
+                {
+                    _context.Entry(entity).Property(property).IsModified = false;
+                }
             }
+            return SaveChanges(nameof(Update)) > 0;
         }
 
         public bool UpdateIncluded(T entity, string[] accepted = null)
@@ -121,7 +120,7 @@ namespace Idis.Infrastructure
                 var effected = SaveChanges(nameof(Update));
                 return effected > 0;
             }
-            catch (InfrasException ex)
+            catch (Exception ex)
             {
                 Log.Error($"Func: {nameof(UpdateIncluded)}, {ex.Message}");
                 return false;
@@ -137,6 +136,8 @@ namespace Idis.Infrastructure
         public bool Delete(int key)
         {
             var obj = _context.Set<T>().Find(key);
+
+            if (obj is null) return false;
 
             _context.Set<T>().Remove(obj);
             return SaveChanges(nameof(Delete)) > 0;
@@ -167,7 +168,7 @@ namespace Idis.Infrastructure
             {
                 return _context.SaveChanges();
             }
-            catch (InfrasException ex)
+            catch (Exception ex)
             {
                 Log.Error($"Func: {funcname}, " + ex.Message);
                 return 0;

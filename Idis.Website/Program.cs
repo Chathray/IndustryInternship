@@ -95,10 +95,10 @@ namespace Idis.Website
                         Phone = "0943154555",
                         Duration = "2021-05-16 - 2021-02-02",
                         TrainingId = 0,
-                        DepartmentId = new Random().Next(1, 5),
+                        DepartmentId = new Random().Next(1, 6),
                         OrganizationId = new Random().Next(1, 4),
                         Avatar = "_intern.jpg",
-                        MentorId = new Random().Next(1, 6),
+                        MentorId = new Random().Next(1, 5),
                         Type = "Part time"
                     };
                     context.Interns.Add(temp);

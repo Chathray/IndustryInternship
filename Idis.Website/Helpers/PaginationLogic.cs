@@ -65,7 +65,7 @@ namespace Idis.Website
 
             int startPage, endPage;
             startPage = 1;
-            endPage = (int)Math.Round((decimal)totalItems / pageSize);
+            endPage = (int)Math.Ceiling(totalItems / (decimal)pageSize);
 
 
             // calculate start and end item indexes

@@ -11,5 +11,6 @@ namespace Idis.Application
         public string GestsField { get; set; }
         public string EventLocationLabel { get; set; }
         public string EventDescriptionLabel { get; set; }
+        public string Image { get; set; }
     }
 }

@@ -1,12 +1,15 @@
 ﻿using Idis.Application;
 using Idis.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
@@ -24,6 +27,9 @@ namespace Idis.WebApi
         {
             services.AddSwaggerGen(setup =>
             {
+                setup.DocumentFilter<TagDescriptionsFilter>();
+                setup.SchemaFilter<ExamplesSchemaFilter>();
+                
                 setup.SwaggerDoc("v2", new OpenApiInfo
                 {
                     Title = "Industry Internship OpenAPI",
@@ -55,8 +61,12 @@ namespace Idis.WebApi
                     Description = "Place to add JWT with Bearer",
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
+                    Scheme = "Bearer",
+                    BearerFormat ="JWT"
                 });
+
+                setup.DescribeAllParametersInCamelCase();
+                
 
                 setup.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
@@ -69,30 +79,37 @@ namespace Idis.WebApi
                                 Id = "Bearer"
                             },
                             Name = "Bearer",
+                            BearerFormat ="JWT",
+                            In = ParameterLocation.Header,
+                            Scheme = "Bearer",                            
                         },
                         new List<string>()
                     }
                 });
 
-                setup.DocInclusionPredicate((doc_ver, api_desc) =>
-                {
-                    if (!api_desc.TryGetMethodInfo(out MethodInfo methodInfo)) return false;
+                //setup.DocInclusionPredicate((v_doc, api_desc) =>
+                //{
+                //    if (!api_desc.TryGetMethodInfo(out MethodInfo methodInfo))
+                //        return false;
 
-                    var versions = methodInfo.DeclaringType
-                        .GetCustomAttributes(true)
-                        .OfType<ApiVersionAttribute>()
-                        .SelectMany(attr => attr.Versions);
+                //    var versions = methodInfo.DeclaringType
+                //        .GetCustomAttributes(true)
+                //        .OfType<ApiVersionAttribute>()
+                //        .SelectMany(attr => attr.Versions);
 
-                    return versions.Any(v => $"v{v}" == doc_ver);
-                });
+                //    return versions.Any(v => $"v{v}" == v_doc);
+                //});
 
-                setup.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.HttpMethod}");
+                //setup.OrderActionsBy((apiDesc) =>
+                //$"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.HttpMethod}");
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 setup.IncludeXmlComments(xmlPath);
             });
+
+            services.Configure<SwaggerOptions>(c => c.SerializeAsV2 = true);
         }
 
         public static void ConfigureApiVersioning(this IServiceCollection services)
@@ -102,6 +119,7 @@ namespace Idis.WebApi
                 options.DefaultApiVersion = new ApiVersion(2, 0);
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ReportApiVersions = true;
+                options.UseApiBehavior = true;
             });
 
             services.AddVersionedApiExplorer(options =>
@@ -176,7 +194,6 @@ namespace Idis.WebApi
             services.AddScoped<IPointRepository, PointRepository>();
 
             services.AddScoped<IServiceFactory, ServiceFactory>();
-
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IActivityService, ActivityService>();
             services.AddScoped<IInternService, InternService>();
@@ -188,6 +205,8 @@ namespace Idis.WebApi
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<IPointService, PointService>();
+
+            services.AddSingleton<IOriginService, OriginService>();
         }
     }
 }

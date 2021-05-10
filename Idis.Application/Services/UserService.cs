@@ -65,7 +65,7 @@ namespace Idis.Application
             return _userRepo.UpdatePassword(userId, newPassword);
         }
 
-        public bool UserDelete(int userId)
+        public bool DeleteUser(int userId)
         {
             return _userRepo.UserDelete(userId);
         }

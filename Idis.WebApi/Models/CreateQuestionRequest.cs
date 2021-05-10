@@ -1,6 +1,6 @@
-﻿namespace Idis.Application
+﻿namespace Idis.WebApi
 {
-    public class QuestionModel
+    public class CreateQuestionRequest
     {
         public int? QuestionId { get; set; }
         public string Group { get; set; }
