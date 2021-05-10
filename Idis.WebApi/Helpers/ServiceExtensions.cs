@@ -105,7 +105,7 @@ namespace Idis.WebApi
                 setup.IncludeXmlComments(xmlPath);
             });
 
-            services.Configure<SwaggerOptions>(c => c.SerializeAsV2 = true);
+            //services.Configure<SwaggerOptions>(c => c.SerializeAsV2 = true);
         }
 
         public static void ConfigureApiVersioning(this IServiceCollection services)

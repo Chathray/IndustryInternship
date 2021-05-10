@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.24, for Win64 (x86_64)
 --
 -- Host: localhost    Database: tmainternship
 -- ------------------------------------------------------
--- Server version	8.0.23
+-- Server version	8.0.24
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -61,7 +61,7 @@ CREATE TABLE `departments` (
   `SharedTrainings` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`DepartmentId`),
   UNIQUE KEY `Name_UNIQUE` (`DepName`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `departments` (
 
 LOCK TABLES `departments` WRITE;
 /*!40000 ALTER TABLE `departments` DISABLE KEYS */;
-INSERT INTO `departments` VALUES (1,'DC8-Ext','TMA Innovation Park 2','2021-04-01 01:37:49','2021-04-20 23:30:35','2'),(2,'DC13-Ext','TMA Innovation Park 1','2021-04-01 01:37:49',NULL,NULL),(3,'DC8','TMA Innovation Park','2021-04-01 01:37:49','2021-04-20 23:31:42','2,19'),(4,'DC1','LAB 6','2021-04-01 01:37:49','2021-04-20 23:31:36','18,2,19');
+INSERT INTO `departments` VALUES (1,'DC8-Ext','TMA Innovation Park 2','2021-04-01 01:37:49','2021-05-10 00:21:39',','),(2,'DC13-Ext','TMA Innovation Park 1','2021-04-01 01:37:49','2021-05-10 00:21:39',','),(3,'DC8','TMA Innovation Park','2021-04-01 01:37:49','2021-05-10 00:21:39',','),(4,'DC1','LAB 6D','2021-04-01 01:37:49','2021-05-10 00:21:39',','),(5,'DC2','LAB 8','2021-05-10 00:56:04','2021-05-10 00:56:13',NULL);
 /*!40000 ALTER TABLE `departments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ CREATE TABLE `events` (
   `GestsField` json DEFAULT NULL,
   `EventLocationLabel` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `EventDescriptionLabel` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Image` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '/img/event.svg',
+  `Image` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '/img/_event.svg',
   PRIMARY KEY (`EventId`),
   UNIQUE KEY `Title_UNIQUE` (`Title`),
   KEY `FK_Events_Type_idx` (`Type`),
@@ -185,7 +185,7 @@ CREATE TABLE `interns` (
   CONSTRAINT `FK_Interns_Organization` FOREIGN KEY (`OrganizationId`) REFERENCES `organizations` (`OrganizationId`) ON UPDATE CASCADE,
   CONSTRAINT `FK_Interns_Updated` FOREIGN KEY (`UpdatedBy`) REFERENCES `users` (`UserId`) ON UPDATE CASCADE,
   CONSTRAINT `PK_Intern_Training` FOREIGN KEY (`TrainingId`) REFERENCES `trainings` (`TrainingId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,6 +194,7 @@ CREATE TABLE `interns` (
 
 LOCK TABLES `interns` WRITE;
 /*!40000 ALTER TABLE `interns` DISABLE KEYS */;
+INSERT INTO `interns` VALUES (2,'Lizbeth@73','Lizbeth','Dunkle','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,1,NULL,NULL,NULL),(3,'Jarvis@72','Jarvis','Trostle','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(4,'Kendall@71','Kendall','Rae','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,2,NULL,NULL,NULL),(5,'Lura@70','Lura','Trostle','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(6,'Alysa@69','Alysa','Kees','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,4,NULL,NULL,NULL),(7,'Jamel@68','Jamel','Jensen','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,4,NULL,NULL,NULL),(8,'Alysa@67','Alysa','Adcox','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,4,NULL,NULL,NULL),(9,'Rolf@66','Rolf','Ringdahl','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(10,'Tamar@65','Tamar','Enriquez','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,4,NULL,NULL,NULL),(11,'Kendall@64','Kendall','Kees','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,3,NULL,NULL,NULL),(12,'Thanh@63','Thanh','Roberson','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,1,NULL,NULL,NULL),(13,'Theo@62','Theo','Rae','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,3,NULL,NULL,NULL),(14,'Quoc@61','Quoc','Trostle','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,2,NULL,NULL,NULL),(15,'Thanh@60','Thanh','Jensen','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,4,NULL,NULL,NULL),(16,'Reta@59','Reta','Kees','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(17,'Kendall@58','Kendall','Kees','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(18,'Rubi@57','Rubi','Adcox','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,4,NULL,NULL,NULL),(19,'Lura@56','Lura','Eberhard','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,2,NULL,NULL,NULL),(20,'Thanh@55','Thanh','Jensen','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,4,NULL,NULL,NULL),(21,'Korey@54','Korey','Mong','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,3,NULL,NULL,NULL),(22,'Kendall@53','Kendall','Kibler','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,2,NULL,NULL,NULL),(23,'Viet@74','Viet','Jensen','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,3,NULL,NULL,NULL),(24,'Quoc@52','Quoc','Trostle','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,4,NULL,NULL,NULL),(25,'Viet@75','Viet','Turley','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,4,NULL,NULL,NULL),(26,'Lura@77','Lura','Enriquez','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(27,'Theo@98','Theo','Dekker','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(28,'Lizbeth@97','Lizbeth','Diangelo','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(29,'Dorene@96','Dorene','Rae','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,4,NULL,NULL,NULL),(30,'Lan@95','Lan','Eberhard','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,4,NULL,NULL,NULL),(31,'Rolf@94','Rolf','Jenney','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,2,NULL,NULL,NULL),(32,'Lizbeth@93','Lizbeth','Diangelo','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,3,NULL,NULL,NULL),(33,'Jamel@92','Jamel','Enriquez','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,3,NULL,NULL,NULL),(34,'Alysa@91','Alysa','Mong','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,3,NULL,NULL,NULL),(35,'Jamel@90','Jamel','Demar','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,2,NULL,NULL,NULL),(36,'Reta@89','Reta','Demar','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,3,NULL,NULL,NULL),(37,'Tamar@88','Tamar','Rae','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,2,NULL,NULL,NULL),(38,'Viet@87','Viet','Ringdahl','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,3,NULL,NULL,NULL),(39,'Quoc@86','Quoc','Demar','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(40,'Jarvis@85','Jarvis','Enriquez','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,2,NULL,NULL,NULL),(41,'Alysa@84','Alysa','Demar','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,1,NULL,NULL,NULL),(42,'Esmeralda@83','Esmeralda','Jenney','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,4,NULL,NULL,NULL),(43,'Viet@82','Viet','Jensen','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,2,NULL,NULL,NULL),(44,'Alysa@81','Alysa','Dunkle','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,3,NULL,NULL,NULL),(45,'Korey@80','Korey','Laborde','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,1,NULL,NULL,NULL),(46,'Viet@79','Viet','Adcox','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,2,NULL,NULL,NULL),(47,'Lan@78','Lan','Lafortune','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,3,NULL,NULL,NULL),(48,'Esmeralda@76','Esmeralda','Dunkle','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,1,NULL,NULL,NULL),(49,'Madge@51','Madge','Demar','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,4,NULL,NULL,NULL),(50,'Domitila@50','Domitila','Trostle','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,4,NULL,NULL,NULL),(51,'Reta@49','Reta','Eberhard','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,3,NULL,NULL,NULL),(52,'Rolf@22','Rolf','Mong','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,4,NULL,NULL,NULL),(53,'Domitila@21','Domitila','Dekker','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,4,NULL,NULL,NULL),(54,'Theo@20','Theo','Kees','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,1,NULL,NULL,NULL),(55,'Thanh@19','Thanh','Enriquez','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,1,NULL,NULL,NULL),(56,'Korey@18','Korey','Kibler','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,2,NULL,NULL,NULL),(57,'Madge@17','Madge','Jensen','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,1,NULL,NULL,NULL),(58,'Lan@16','Lan','Kibler','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(59,'Danika@15','Danika','Rae','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,3,NULL,NULL,NULL),(60,'Lura@14','Lura','Kibler','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,2,NULL,NULL,NULL),(61,'Quoc@13','Quoc','Jensen','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,4,NULL,NULL,NULL),(62,'Jamel@12','Jamel','Diangelo','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,4,NULL,NULL,NULL),(63,'Viet@11','Viet','Kibler','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,3,NULL,NULL,NULL),(64,'Marquis@10','Marquis','Rae','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(65,'Madge@9','Madge','Rae','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,4,NULL,NULL,NULL),(66,'Lan@8','Lan','Jenney','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,2,NULL,NULL,NULL),(67,'Theo@7','Theo','Kees','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,3,NULL,NULL,NULL),(68,'Lizbeth@6','Lizbeth','Mong','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,3,NULL,NULL,NULL),(69,'Alysa@5','Alysa','Mayville','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,1,NULL,NULL,NULL),(70,'Madge@4','Madge','Jensen','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,3,NULL,NULL,NULL),(71,'Eldora@3','Eldora','Kees','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,1,NULL,NULL,NULL),(72,'Tamar@2','Tamar','Laborde','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,4,NULL,NULL,NULL),(73,'Jarvis@23','Jarvis','Rae','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,1,NULL,NULL,NULL),(74,'Reta@24','Reta','Dekker','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,1,NULL,NULL,NULL),(75,'Rubi@25','Rubi','Eberhard','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,4,NULL,NULL,NULL),(76,'Esmeralda@26','Esmeralda','Jensen','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,2,NULL,NULL,NULL),(77,'Tamar@48','Tamar','Mong','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,1,NULL,NULL,NULL),(78,'Lan@47','Lan','Mong','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,3,NULL,NULL,NULL),(79,'Marquis@46','Marquis','Diangelo','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,4,NULL,NULL,NULL),(80,'Theo@45','Theo','Mong','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,4,NULL,NULL,NULL),(81,'Dorene@44','Dorene','Jenney','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,4,NULL,NULL,NULL),(82,'Esmeralda@43','Esmeralda','Jenney','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,2,NULL,NULL,NULL),(83,'Jarvis@42','Jarvis','Demar','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,4,NULL,NULL,NULL),(84,'Tamar@41','Tamar','Dunkle','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',1,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,1,NULL,NULL,NULL),(85,'Kendall@40','Kendall','Mong','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,2,NULL,NULL,NULL),(86,'Alysa@39','Alysa','Jenney','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',1,1,NULL,NULL,NULL),(87,'Kendall@99','Kendall','Demar','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',2,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,2,NULL,NULL,NULL),(88,'Rubi@38','Rubi','Dekker','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,2,NULL,NULL,NULL),(89,'Thanh@36','Thanh','Kees','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,3,NULL,NULL,NULL),(90,'Kendall@35','Kendall','Roberson','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',3,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',3,1,NULL,NULL,NULL),(91,'Lizbeth@34','Lizbeth','Lafortune','Male','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,3,NULL,NULL,NULL),(92,'Thanh@33','Thanh','Dunkle','Female','1998-07-20','2021-05-16 - 2021-02-02',0,'Part time',4,NULL,'2021-05-10 00:55:40','2021-05-10 00:55:40','_intern.jpg','0943154555',2,2,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `interns` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +214,7 @@ CREATE TABLE `organizations` (
   `UpdatedDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`OrganizationId`),
   UNIQUE KEY `Name_UNIQUE` (`OrgName`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +223,7 @@ CREATE TABLE `organizations` (
 
 LOCK TABLES `organizations` WRITE;
 /*!40000 ALTER TABLE `organizations` DISABLE KEYS */;
-INSERT INTO `organizations` VALUES (1,'Quy Nhon University','170 An Dương Vương, Nguyễn Văn Cừ, Thành phố Qui Nhơn, Bình Định','0256 3846 16','2021-04-01 01:36:54',NULL),(2,'Nha Trang University','170 An Dương Vương, Nguyễn Văn Cừ, Thành phố Nha Trang','0256 3846 156','2021-04-01 01:36:54','2021-04-02 08:37:37'),(3,'Tay Nguyen University','170 An Dương Vương, Nguyễn Văn Cừ, Thành phố Tây Nguyên','0256 3846 156','2021-04-01 01:36:54','2021-04-02 08:37:49');
+INSERT INTO `organizations` VALUES (1,'Quy Nhon University','170 An Dương Vương, Nguyễn Văn Cừ, Thành phố Qui Nhơn, Bình Định','0256 3846 16','2021-04-01 01:36:54',NULL),(2,'Nha Trang University','170 An Dương Vương, Nguyễn Văn Cừ, Thành phố Nha Trang','0256 3846 156','2021-04-01 01:36:54','2021-05-10 00:20:56'),(3,'Tay Nguyen University','170 An Dương Vương, Nguyễn Văn Cừ, Thành phố Tây Nguyên','0256 3846 156','2021-04-01 01:36:54','2021-04-02 08:37:49');
 /*!40000 ALTER TABLE `organizations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,12 +273,13 @@ DROP TABLE IF EXISTS `questions`;
 CREATE TABLE `questions` (
   `QuestionId` int NOT NULL AUTO_INCREMENT,
   `Group` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `InData` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `InData` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `OutData` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `CreatedDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `UpdatedDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`QuestionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`QuestionId`),
+  UNIQUE KEY `InData_UNIQUE` (`InData`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -286,7 +288,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (1,'Recruit','Cho em hỏi TMA phỏng vấn tiếng Anh hay tiếng Việt?','Bên mình sẽ phỏng vấn cả tiếng Anh và tiếng Việt nha bạn.','2021-04-01 02:36:57','2021-04-01 02:36:57'),(2,'Recruit','Anh/chị cho em hỏi nếu test tiếng Anh ở công ty thì đề thi như thế nào ạ? Bao lâu sẽ có kết quả?','Chào bạn, đề thi sẽ theo chuẩn đề TOEIC, thông thường kết quả sẽ được thông báo trong vòng 1 tuần, tùy thuộc vào mỗi dự án.','2021-04-01 02:36:57','2021-04-01 02:36:57'),(3,'Recruit','Em là SV năm cuối (đang làm luận văn), chuyên ngành: Điện tử - Viễn thông, trường: ĐH Bách Khoa Tp. HCM. Em có 2 câu hỏi: TMA có tuyển thực tập sinh không? Nếu có, yêu cầu cụ thể (GPA, Tiếng Anh,...) như thế nào?','TMA thường xuyên tuyển thực tập sinh, sắp tới bên chị sẽ nhận hồ sơ thực tập để chuẩn bị cho đợt thực tập kế tiếp vào tháng 9. Hồ sơ ứng tuyển bao gồm:<ul class=\'mt-3\'><li>CV Tiếng Anh;</li><li> Bảng điểm hoặc bằng Tiếng Anh(nếu có);</li><li> Hình 3x4;</li><li> Giấy giới thiệu thực tập</li></ul> ','2021-04-01 02:36:57','2021-04-01 02:36:57'),(4,'Internship','Ngoại ngữ có yêu cầu cao không Ad?','Nếu em đã có các bằng như (TOEIC, TOEFL, IELTS) tương đương TOEIC 450 trở lên thì không phải làm bài test em nhé.','2021-04-01 02:36:57','2021-04-01 02:36:57'),(5,'Internship','Thời gian thực tập yêu cầu là bao nhiêu vậy Ad?','Thời gian thực tập kéo dài 3 tháng, 2.5 ngày/tuần em à.','2021-04-01 02:36:57','2021-04-22 09:24:21'),(6,'Other','Nhân viên của công ty có nhiều con gái không?','Không nhiều lắm!','2021-04-20 15:02:31','2021-04-22 09:24:21');
+INSERT INTO `questions` VALUES (1,'Internship','Ngoại ngữ có yêu cầu cao không Ad?','Nếu em đã có các bằng như (TOEIC, TOEFL, IELTS) tương đương TOEIC 450 trở lên thì không phải làm bài test em nhé.','2021-04-01 02:36:57','2021-05-10 00:51:45'),(2,'Internship','Thời gian thực tập yêu cầu là bao nhiêu vậy Ad?','Thời gian thực tập kéo dài 3 tháng, 2.5 ngày/tuần em à.','2021-04-01 02:36:57','2021-05-10 00:58:18'),(3,'Recruit','TMA là viết tắt của từ gì?','Thân Mật Á!','2021-05-09 19:59:38','2021-05-10 06:37:24');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,7 +310,7 @@ CREATE TABLE `trainings` (
   UNIQUE KEY `TraName_UNIQUE` (`TraName`),
   KEY `FK_createdby_user_idx` (`CreatedBy`),
   CONSTRAINT `FK_createdby_user` FOREIGN KEY (`CreatedBy`) REFERENCES `users` (`UserId`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,7 +319,7 @@ CREATE TABLE `trainings` (
 
 LOCK TABLES `trainings` WRITE;
 /*!40000 ALTER TABLE `trainings` DISABLE KEYS */;
-INSERT INTO `trainings` VALUES (0,'None','{\"ops\":[{\"insert\":\"Nothing here\\n\"}]}','2021-03-30 06:29:34','2021-04-05 05:48:01',1),(2,'ASP.NET Core MVC','{\"ops\":[{\"attributes\":{\"underline\":true},\"insert\":\"Basic\"},{\"attributes\":{\"list\":\"ordered\"},\"insert\":\"\\n\"},{\"insert\":\"Inter\"},{\"attributes\":{\"list\":\"ordered\"},\"insert\":\"\\n\"},{\"insert\":\"Advanced\"},{\"attributes\":{\"list\":\"ordered\"},\"insert\":\"\\n\"}]}','2021-04-05 06:36:10','2021-04-20 13:23:01',1),(18,'Javascript Ninja','{\"ops\":[{\"insert\":\"1\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"3\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"4\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"4434\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"33\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"43\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"4434\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"3434\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"34\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"4333\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"}]}','2021-04-20 14:00:28','2021-04-20 14:00:28',1),(19,'Python API','{\"ops\":[{\"insert\":\"A\\nB\\nC\\n\"}]}','2021-04-20 23:31:29','2021-04-20 23:31:29',1);
+INSERT INTO `trainings` VALUES (0,'None','{\"ops\":[{\"insert\":\"Nothing here\\n\"}]}','2021-03-30 06:29:34','2021-04-05 05:48:01',1),(1,'Javascript Ninja','{\"ops\":[{\"insert\":\"1\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"3\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"4\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"4434\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"33\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"43\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"4434\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"3434\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"34\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"4333\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"}]}','2021-04-20 14:00:28','2021-05-10 00:52:18',1);
 /*!40000 ALTER TABLE `trainings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,7 +353,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `Email_UNIQUE` (`Email`),
   KEY `FK_users_departments_id_idx` (`DepartmentId`),
   CONSTRAINT `FK_users_departments_id` FOREIGN KEY (`DepartmentId`) REFERENCES `departments` (`DepartmentId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -360,7 +362,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin@x','+84 091 553 35','Thang','Huynh','$2a$11$GxUJJj03iNAA0KpdVvi5s.WHAG6duk9oTw1Yu7H7nzKzTd4KOVkKG','danger','mentor',1,'/img/avatar/_user.jpg','HCM City','','454',0,'/img/avatar/_header.jpg','2021-03-15 03:39:36','2021-04-28 04:52:13',1),(2,'tan@tma',NULL,'Tân','Trần','$2a$11$Y6RWgY8CxI7zyGHvTqz16eCdcZPSERWFTHHtlQRWlwIWIAhoG4md6','danger','admin',1,'/img/avatar/_user.jpg','Ha Noi',NULL,'5',0,'/img/avatar/_header.jpg','2021-03-16 20:43:28','2021-04-22 01:34:36',1),(3,'thanh@qnu',NULL,'Thanh','Tran Thien','$2a$11$kWeq0c.p4h5ASXdbdnuRweg8TDzumiS1sfkmb.IormcRxpBao7nsu','success','staff',1,'/img/avatar/_user.jpg','Da Nang',NULL,'65',0,'/img/avatar/_header.jpg','2021-03-17 18:41:37','2021-04-20 08:58:21',1),(4,'by@tma',NULL,'By','Le Thi','$2a$11$QmPcqj0ast0KIogZxIvZiesOLfcg/bpOlpx34ZahIyIixMd/OmVTK','warning','staff',2,'/img/avatar/_user.jpg','Quy Nhon',NULL,'65',0,'/img/avatar/_header.jpg','2021-03-17 02:25:34','2021-04-20 14:19:05',1),(5,'dat@n',NULL,'Dat','Nguyen','$2a$11$QmPcqj0ast0KIogZxIvZiesOLfcg/bpOlpx34ZahIyIixMd/OmVTK','success','mentor',NULL,'/img/avatar/_user.jpg','Quy Nhon',NULL,NULL,0,'/img/avatar/_header.jpg','2021-04-05 01:49:07','2021-04-20 10:29:15',1);
+INSERT INTO `users` VALUES (1,'admin@x','+84 091 553 35','Thanh Le','Huynh','$2a$11$NdNPr/79zMGg/phT9Vyvk.ztV7TJTMYZwGqOkI1xLWtmR6u61RwFG','danger','staff',1,'/img/avatar/_user.jpg','HCM City',NULL,'454',0,'/img/avatar/_header.jpg','2021-03-15 03:39:36','2021-05-10 06:38:00',1),(2,'tan@tma',NULL,'Tân','Trần','$2a$11$Y6RWgY8CxI7zyGHvTqz16eCdcZPSERWFTHHtlQRWlwIWIAhoG4md6','danger','admin',1,'/img/avatar/_user.jpg','Ha Noi',NULL,'5',0,'/img/avatar/_header.jpg','2021-03-16 20:43:28','2021-04-22 01:34:36',1),(3,'thanh@qnu',NULL,'Thanh','Tran Thien','$2a$11$kWeq0c.p4h5ASXdbdnuRweg8TDzumiS1sfkmb.IormcRxpBao7nsu','success','staff',1,'/img/avatar/_user.jpg','Da Nang',NULL,'65',0,'/img/avatar/_header.jpg','2021-03-17 18:41:37','2021-04-20 08:58:21',1),(4,'by@tma',NULL,'By','Le Thi','$2a$11$QmPcqj0ast0KIogZxIvZiesOLfcg/bpOlpx34ZahIyIixMd/OmVTK','warning','staff',2,'/img/avatar/_user.jpg','Quy Nhon',NULL,'65',0,'/img/avatar/_header.jpg','2021-03-17 02:25:34','2021-04-20 14:19:05',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -382,6 +384,44 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `CheckUser`(
 )
 BEGIN
   SELECT * FROM users WHERE Email = inEmail;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `CleanActivitiesData` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CleanActivitiesData`(createdBy int)
+BEGIN
+	DELETE FROM tmainternship.activities WHERE createdBy = createdBy;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `CleanInternData` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CleanInternData`()
+BEGIN
+	DELETE FROM tmainternship.interns WHERE internid > 0;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -862,51 +902,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `SetSharedTraining` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SetSharedTraining`(depId int, sharedArray varchar(100))
-BEGIN
-	UPDATE departments
-    SET SharedTrainings = sharedArray
-    WHERE departmentId = depId;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `SetUserStatus` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SetUserStatus`(
-    inUserId int,
-	inStatus varchar(10))
-BEGIN
-	UPDATE users
-    SET 
-		Status = inStatus
-    WHERE UserId = inUserId;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `UpdateEventByTitle` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -918,6 +913,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateEventByTitle`(
+	inImage nvarchar(500),
 	inTitle nvarchar(500),
 	inType nvarchar(500),
 	inClassName nvarchar(500),
@@ -931,6 +927,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateEventByTitle`(
 BEGIN
 	UPDATE events
     SET 
+		Image = inImage,
 		Title = inTitle,
 		Type = inType,
 		ClassName = inClassName,
@@ -958,4 +955,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-28 13:26:04
+-- Dump completed on 2021-05-09 23:39:24
