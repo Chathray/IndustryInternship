@@ -21,7 +21,7 @@ namespace Idis.Application
             // check if dead, make it to alive
             if (user.IsDeleted)
             {
-                var success =_userRepo.UnDelete(user.UserId);
+                var success = _userRepo.UnDelete(user.UserId);
                 if (!success) return null;
             }
             var model = ObjectMapper.Mapper.Map<UserModel>(user);

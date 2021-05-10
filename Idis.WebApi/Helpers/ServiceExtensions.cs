@@ -1,8 +1,6 @@
 ﻿using Idis.Application;
 using Idis.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,11 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +25,7 @@ namespace Idis.WebApi
             {
                 setup.DocumentFilter<TagDescriptionsFilter>();
                 setup.SchemaFilter<ExamplesSchemaFilter>();
-                
+
                 setup.SwaggerDoc("v2", new OpenApiInfo
                 {
                     Title = "Industry Internship OpenAPI",
@@ -62,11 +58,11 @@ namespace Idis.WebApi
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer",
-                    BearerFormat ="JWT"
+                    BearerFormat = "JWT"
                 });
 
                 setup.DescribeAllParametersInCamelCase();
-                
+
 
                 setup.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
@@ -81,7 +77,7 @@ namespace Idis.WebApi
                             Name = "Bearer",
                             BearerFormat ="JWT",
                             In = ParameterLocation.Header,
-                            Scheme = "Bearer",                            
+                            Scheme = "Bearer",
                         },
                         new List<string>()
                     }

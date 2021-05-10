@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using Idis.Application;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
-using System.Linq;
-using System.Xml;
 
 namespace Idis.WebApi
 {

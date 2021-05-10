@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using System.Linq;
 
 namespace Idis.WebApi
 {
@@ -40,7 +38,7 @@ namespace Idis.WebApi
 
             // Enable Cross-Origin Requests (CORS) in ASP.NET Core
             services.AddCors();
-            
+
             // Configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
@@ -92,7 +90,7 @@ namespace Idis.WebApi
                     , SubmitMethod.Delete);
                 c.UseRequestInterceptor("(request) => { return request; }");
                 c.UseResponseInterceptor("(response) => { return response; }");
-                
+
                 c.SwaggerEndpoint("/idis/v2/docs.json", "Idis OpenAPI Version 2");
                 c.SwaggerEndpoint("/idis/v1/docs.json", "Idis OpenAPI Version 1");
 
@@ -132,7 +130,7 @@ namespace Idis.WebApi
                 .AllowAnyHeader());
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
-            app.UseMiddleware<AuthenticationMiddleware>();            
+            app.UseMiddleware<AuthenticationMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

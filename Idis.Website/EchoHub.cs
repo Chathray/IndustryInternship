@@ -1,6 +1,5 @@
 ﻿using Idis.Application;
 using Microsoft.AspNetCore.SignalR;
-using Serilog;
 using System.Threading.Tasks;
 
 namespace Idis.Website

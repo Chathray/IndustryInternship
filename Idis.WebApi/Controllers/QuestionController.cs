@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using Idis.Application;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Dynamic;
 
 namespace Idis.WebApi
 {

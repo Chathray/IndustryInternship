@@ -1,5 +1,3 @@
-using Idis.Application;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Idis.WebApi

@@ -1,8 +1,6 @@
 ﻿using Dapper;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
-using System.Linq;
 
 namespace Idis.Infrastructure
 {

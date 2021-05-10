@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Idis.WebApi
+﻿namespace Idis.WebApi
 {
     public class ModelSample
     {
@@ -73,10 +68,10 @@ namespace Idis.WebApi
 
         public static Application.TrainingModel TrainingModel => new()
         {
-           TrainingId = 100,
-           CreatedBy = 2,
-           TraData = "{'ops':[{'insert':'s\n'}]}",
-           TraName = "ASP.NET Core 5.0 MVC"
+            TrainingId = 100,
+            CreatedBy = 2,
+            TraData = "{'ops':[{'insert':'s\n'}]}",
+            TraName = "ASP.NET Core 5.0 MVC"
         };
     }
 }

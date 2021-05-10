@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using Idis.Application;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
 
 namespace Idis.WebApi
 {
@@ -168,7 +164,7 @@ namespace Idis.WebApi
             point.MarkerId = _origin.UserId;
             var success = _serviceFactory.Point.EvaluateIntern(point);
 
-            if (success) 
+            if (success)
                 return Ok();
             else
                 return StatusCode(StatusCodes.Status501NotImplemented);
