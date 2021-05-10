@@ -721,8 +721,8 @@ ORDER BY
 	CASE WHEN orderby=6 THEN OrgName END,
 	CASE WHEN orderby=7 THEN TraName END,
 	CASE WHEN orderby=8 THEN t5.FirstName END,
-	CASE WHEN orderby=9 THEN t5.Duration END,
-	CASE WHEN orderby=10 THEN t5.DateOfBirth END
+	CASE WHEN orderby=9 THEN t1.Duration END,
+	CASE WHEN orderby=10 THEN t1.DateOfBirth END
 LIMIT offset_value, limit_value;
 
 SELECT FOUND_ROWS() AS FOUND_ROWS;
