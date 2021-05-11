@@ -28,7 +28,10 @@ namespace Idis.Website
 
             // You must have the call to AddAutofac in the Program.Main
             // method or this won't be called.
+
             builder.RegisterModule(new AutoFacModule());
+            //builder.RegisterAssemblyModules(typeof(Startup).Assembly);
+
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

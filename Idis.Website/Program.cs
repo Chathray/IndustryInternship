@@ -4,9 +4,11 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace Idis.Website
@@ -56,17 +58,33 @@ namespace Idis.Website
             }
         }
 
-        private static IWebHost CreateHostBuilder(string[] args)
+        private static IHost CreateHostBuilder(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args)
+            /*ASP.NET Core 1.1 - 2.2*/
+            //return WebHost
+            //    .CreateDefaultBuilder(args)
+            //    .ConfigureServices(services => services.AddAutofac())
+            //    .UseSerilog()
+            //    .UseIISIntegration()
+            //    .UseStartup<Startup>()
+            //    .Build();
+
+            /*ASP.NET Core 3+*/
+            return Host
+                .CreateDefaultBuilder(args)
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseSerilog()
-                .ConfigureServices(services => services.AddAutofac())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHostDefaults(webHostBuilder =>
+                {
+                    webHostBuilder
+                    .UseIISIntegration()
+                    .UseStartup<Startup>();
+                })
                 .Build();
         }
 
-        private static void SeedDatabase(IWebHost host)
+        private static void SeedDatabase(IHost host)
         {
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
